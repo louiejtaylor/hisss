@@ -1,3 +1,3 @@
 snakemake
 bowtie2
-samtools
+samtools=0.1.19
