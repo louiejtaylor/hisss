@@ -29,4 +29,4 @@ If you want to run the dummy data again after tinkering with the Snakefile or ru
 
 When you're done, to leave the conda environment:
 
-   source deactivate
+    source deactivate
