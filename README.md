@@ -12,7 +12,7 @@ We use conda to handle dependencies, you can install miniconda from [here](https
     source activate viruSnake
     conda install -c bioconda -c conda-forge --file requirements.txt 
     
-Conda is great at managing dependencies and environments without requiring any admin privileges.
+Conda is great for managing dependencies and environments without requiring any admin privileges.
     
 To run, all you need is a config file to point Snakemake to your data and targets (see `test_data/test_config.yml` for an example), then run the following in the viruSnake root dir:
 
