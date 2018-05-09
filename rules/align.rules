@@ -1,13 +1,25 @@
 # -*- mode: Snakemake -*-
 
+rule build_index:
+	input:
+		config["dirs"]["root"]+"/"+config["dirs"]["targets"]
+	output:
+		str(config["dirs"]["root"]+"/"+config["dirs"]["targets"]+".1.bt2")
+
+	shell:
+		"bowtie2-build -f {input} {input}"
+
 rule align_reads:
 	input:
 		r1 = lambda wildcards: config["dirs"]["root"]+"/"+config["dirs"]["data"]+"/"+config["samples"][wildcards.sample][0],
-		r2 = lambda wildcards: config["dirs"]["root"]+"/"+config["dirs"]["data"]+"/"+config["samples"][wildcards.sample][1]
+		r2 = lambda wildcards: config["dirs"]["root"]+"/"+config["dirs"]["data"]+"/"+config["samples"][wildcards.sample][1],
+		index = str(config["dirs"]["root"]+"/"+config["dirs"]["targets"]+".1.bt2")
 	output:
 		str(config["dirs"]["root"]+"/"+config["dirs"]["output"]+"/alignments/{sample}.sam")
+	params:
+		index = str(config["dirs"]["root"]+"/"+config["dirs"]["targets"])
 	shell:
-		"bowtie2 -q --local -t --very-sensitive-local -x " + config["dirs"]["root"]+"/"+config["dirs"]["targets"] +" -1 {input.r1} -2 {input.r2} -S {output}"
+		"bowtie2 -q --local -t --very-sensitive-local -x {params.index} -1 {input.r1} -2 {input.r2} -S {output}"
 
 rule process_alignment:
 	input:

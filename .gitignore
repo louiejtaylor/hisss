@@ -2,6 +2,10 @@
 test_data/test_out/
 .snakemake
 
+# Alignment files
+*.bt2
+*.fai
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
