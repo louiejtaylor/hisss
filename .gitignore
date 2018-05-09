@@ -1,3 +1,7 @@
+# Testing output
+test_data/test_out/
+.snakemake
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
