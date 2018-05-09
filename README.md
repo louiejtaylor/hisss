@@ -24,9 +24,9 @@ For an example, you can run the dummy data (which should complete in under a min
     
 If you want to run the dummy data again after tinkering with the Snakefile or rules, you can clean up the test output like so:
 
-        cd test_data
-        bash clean_test.sh
+    cd test_data
+    bash clean_test.sh
 
 When you're done, to leave the conda environment:
 
-       source deactivate
+   source deactivate
