@@ -6,13 +6,11 @@
 
 # Authors: Louis Taylor and Arwa Abbas
 
-include: "rules/test.rules"
 include: "rules/align.rules"
 
 rule all:
 	input:
-		a = str(config["dirs"]["root"]+"/"+config["dirs"]["output"]+"/report.txt"),
-		b = str(config["dirs"]["root"]+"/"+config["dirs"]["output"]+"/alignments/summary.txt")
+		str(config["dirs"]["root"]+"/"+config["dirs"]["output"]+"/alignments/summary.txt")
 
 #rule grab_data:
 #	input:
