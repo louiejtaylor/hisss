@@ -2,7 +2,7 @@
 
 rule build_index:
 	input:
-		config["dirs"]["root"]+"/"+config["dirs"]["targets"]
+		str(config["dirs"]["root"]+"/"+config["dirs"]["targets"])
 	output:
 		str(config["dirs"]["root"]+"/"+config["dirs"]["targets"]+".1.bt2")
 	shell:
@@ -46,7 +46,7 @@ rule temp_summary:
 	params:
 		aln_dir = str(config["dirs"]["root"]+"/"+config["dirs"]["output"] + "/alignments/")
 	shell:
-		"du -h {params.aln_dir}* > {params.aln_dir}summary.txt"
+		"cat {params.aln_dir}*.tsv > {params.aln_dir}summary.txt"
 
 
 
