@@ -23,25 +23,6 @@ rule all:
 #		tar -xzvf {input}
 #		"""
 
-#rule build_indexes:
-#	input:
-#		#see config["dirs"]["targets"]... right now given as a directory TODO: figure out how to split thse out (and do the same with the fastqs) 
-#	output:
-#		str(config["dirs"]["targets"]+'/'+ {target})
-#	shell:
-#		"bowtie2-build -f {input} {output}"
-
-#rule process_alignment:
-#	input:
-#		expand(config["dirs"]["root"]+"/"+config["dirs"]["output"]+"/alignments/{sample}.sam",sample=config["samples"])
-#	output:
-#		# what do we want as the output of this rule? Whatever necessary for coverage calculation
-#	shell:
-#		# samtools view
-#		# samtools sort, overwrite old .bam
-#		# samtools index
-#		# samtools idxstats
-
 #rule calculate_coverage:
 #	input:
 #		rules.process_alignment.output
