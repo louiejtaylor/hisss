@@ -1,0 +1,35 @@
+# -*- mode: Snakemake -*-
+
+rule align_reads:
+	input:
+		r1 = lambda wildcards: config["dirs"]["root"]+"/"+config["dirs"]["data"]+"/"+config["samples"][wildcards.sample][0],
+		r2 = lambda wildcards: config["dirs"]["root"]+"/"+config["dirs"]["data"]+"/"+config["samples"][wildcards.sample][1]
+	output:
+		str(config["dirs"]["root"]+"/"+config["dirs"]["output"]+"/alignments/{sample}.sam")
+	shell:
+		"bowtie2 -q --local -t --very-sensitive-local -x " + config["dirs"]["root"]+"/"+config["dirs"]["targets"] +" -1 {input.r1} -2 {input.r2} -S {output}"
+
+rule process_alignment:
+	input:
+		str(config["dirs"]["root"]+"/"+config["dirs"]["output"]+"/alignments/{sample}.sam")
+	output:
+		bam = str(config["dirs"]["root"]+"/"+config["dirs"]["output"]+"/alignments/{sample}.bam"),
+		sorted = str(config["dirs"]["root"]+"/"+config["dirs"]["output"]+"/alignments/{sample}.sorted.bam"),
+		bai = str(config["dirs"]["root"]+"/"+config["dirs"]["output"]+"/alignments/{sample}.sorted.bam.bai"),
+		stats = str(config["dirs"]["root"]+"/"+config["dirs"]["output"]+"/alignments/{sample}.sorted.idxstats.tsv")#,
+		#targets = str(config["dirs"]["root"]+"/"+config["dirs"]["targets"]) #TODO: fix this, it is a hack
+
+	shell:
+		str("samtools view -bT " + config["dirs"]["root"]+"/"+config["dirs"]["targets"] + " {input}  > {output.bam} \n" +
+		"samtools sort -f {output.bam} {output.sorted}\n" + 
+		"samtools index {output.sorted} {output.bai}\n" + 
+		"samtools idxstats {output.sorted} > {output.stats}")
+
+rule temp_summary:
+	input:
+		expand(config["dirs"]["root"]+"/"+config["dirs"]["output"]+"/alignments/{sample}.bam",sample=config["samples"])
+	output:
+		str(config["dirs"]["root"]+"/"+config["dirs"]["output"]+"/alignments/summary.txt")
+	shell:
+		"du -h " + str(config["dirs"]["root"]+"/"+config["dirs"]["output"]+"/alignments/* > " + str(config["dirs"]["root"]+"/"+config["dirs"]["output"]+"/alignments/summary.txt"))
+

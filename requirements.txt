@@ -1,0 +1,3 @@
+snakemake
+bowtie2
+samtools

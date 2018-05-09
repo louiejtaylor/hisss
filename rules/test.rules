@@ -1,0 +1,17 @@
+# -*- mode: Snakemake -*-
+
+rule test_rule:
+	input:
+		lambda wildcards: config["dirs"]["root"]+"/"+config["dirs"]["data"]+"/"+config["samples"][wildcards.sample][0]
+	output:
+		temp(str(config["dirs"]["root"]+"/"+config["dirs"]["output"]+"/{sample}_test.out"))
+	shell:
+		"cat {input} | wc -l > {output}"
+
+rule test_report:
+	input:
+		expand(config["dirs"]["root"]+"/"+config["dirs"]["output"]+"/{sample}_test.out",sample=config["samples"])
+	output:
+		str(config["dirs"]["root"]+"/"+config["dirs"]["output"]+"/report.txt")
+	shell:
+		"cat "+ config["dirs"]["root"]+"/"+config["dirs"]["output"]+ "/*.out > "+config["dirs"]["root"]+"/"+config["dirs"]["output"]+"/report.txt"

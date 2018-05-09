@@ -1,0 +1,13 @@
+dirs:
+  root: "test_data"
+  data: "fastq"
+  output: "test_out"
+  targets: "genomes/pcv.fasta"
+
+input:
+  format: "fastq"
+  paired: true
+
+samples:
+  test-B: ["testB_1.fastq","testB_2.fastq"]
+  test-A: ["testA_1.fastq","testA_2.fastq"]
