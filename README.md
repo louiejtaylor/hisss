@@ -22,7 +22,7 @@ For an example, you can run the dummy data (which should complete in under a min
 
     snakemake -p --configfile test_data/test_config.yml all
     
-If you want to run the test again after tinkering with the Snakefile or rules, you can clean up the test output like so:
+If you want to run the dummy data again after tinkering with the Snakefile or rules, you can clean up the test output like so:
 
         cd test_data
         bash clean_test.sh
