@@ -55,6 +55,9 @@ all_align_data <- merge(cov_df, read_df,
                         all.x = TRUE, all.y = TRUE)
 
 ##Write output
-write.table(all_align_data, sep = "\t", file = output, row.names = FALSE)
+write.table(all_align_data, sep = "\t",
+            file = output,
+            quote = FALSE,
+            col.names = FALSE, row.names = FALSE)
 
 

@@ -23,23 +23,24 @@ rule combine_coverage_stats:
 		cov = str(OUTPUT_DIR+"/alignments/{sample}.genomecoverage.txt"),
 		stats = str(OUTPUT_DIR+"/alignments/{sample}.sorted.idxstats.tsv")
 	output:
-		str(OUTPUT_DIR+"/alignments/{sample}.align.summary.txt")
+		temp(str(OUTPUT_DIR+"/alignments/{sample}.align.summary.txt"))
 
 	shell:
 		"""
 		Rscript scripts/summarize_alignments.R {input.cov} {input.stats} {output}
 		"""
 
-#Make it so that this requires the output of calculate_coverage
+#Combine information for all samples into a single file
 rule all_summary:
 	input:
 		expand(OUTPUT_DIR+"/alignments/{sample}.align.summary.txt",sample=config["samples"])
 	output:
-		str(OUTPUT_DIR+"/alignments/summary2.txt")
+		str(OUTPUT_DIR+"/alignments/summary3.txt")
 	params:
 		align_dir = str(OUTPUT_DIR + "/alignments/")
 	shell:
-		"cat {params.align_dir}*.align.summary.txt > {params.align_dir}summary2.txt"
-
-
+		"""
+		echo -e "Sample\tAlignTarget\tFractionCoverage\tTargetLength\tMappedReads" > {params.align_dir}summary3.txt
+		cat {params.align_dir}*.align.summary.txt >> {params.align_dir}summary3.txt
+		"""
 
