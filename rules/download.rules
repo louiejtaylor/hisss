@@ -1,14 +1,27 @@
 # -*- mode: Snakemake -*-
 
-#rule grab_data:
-#       input:
-#               #list of URL? data location?
-#       output:
-#               #temp(data files formatted properly?)
-#       shell:
-#               """
-#               wget {url}/{input}
-#               tar -xzvf {input}
-#               """
+rule grab_data:
+	input:
+		r1 = lambda wildcards: config["samples"][wildcards.sample][0],
+		r2 = lambda wildcards: config["samples"][wildcards.sample][1]
+	output:
+		r1 = str(DATA_DIR+"/{sample}_1.fastq.gz"),
+		r2 = str(DATA_DIR+"/{sample}_2.fastq.gz")
+	shell:
+		"""
+		wget -o {output.r1} {input.r1}
+		wget -o {output.r2} {input.r2}
+		"""
 
-
+rule format_data:
+	input:
+		r1 = str(DATA_DIR+"/{sample}_1.fastq.gz"),
+		r2 = str(DATA_DIR+"/{sample}_2.fastq.gz")
+	output:
+		r1 = str(DATA_DIR+"/{sample}_1.fastq"),
+		r2 = str(DATA_DIR+"/{sample}_2.fastq")
+	shell:
+		"""
+		gunzip {input.r1}
+		gunzip {input.r2}
+		"""

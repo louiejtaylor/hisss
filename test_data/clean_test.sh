@@ -12,7 +12,7 @@ if [ "$cur_dir" != "test_data" ]; then
 fi
 echo "in '${cur_dir}', attempting to remove indices and output directory"
 
-rm -r test_out
+rm -r output
 rm genomes/pcv.fasta.*
 
 echo "done"
