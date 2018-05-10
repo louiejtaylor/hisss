@@ -1,0 +1,14 @@
+# -*- mode: Snakemake -*-
+
+#rule grab_data:
+#       input:
+#               #list of URL? data location?
+#       output:
+#               #temp(data files formatted properly?)
+#       shell:
+#               """
+#               wget {url}/{input}
+#               tar -xzvf {input}
+#               """
+
+

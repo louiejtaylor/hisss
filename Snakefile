@@ -14,7 +14,7 @@ include: "rules/summary.rules"
 
 rule all:
 	input:
-		str(config["dirs"]["root"]+"/"+config["dirs"]["output"]+"/alignments/summary.txt")
+		rules.temp_summary.output
 
 #rule grab_data:
 #	input:
