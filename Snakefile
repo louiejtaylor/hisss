@@ -7,7 +7,10 @@
 # Authors: Louis Taylor and Arwa Abbas
 
 include: "rules/download.rules"
+
 include: "rules/align.rules"
+
+include: "rules/summary.rules"
 
 rule all:
 	input:
