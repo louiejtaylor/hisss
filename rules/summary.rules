@@ -1,25 +1,45 @@
 # -*- mode: Snakemake -*-
 
+rule mapping_stats:
+	input: 
+		str(OUTPUT_DIR+"/alignments/{sample}.sorted.bam")
+	output:
+		temp(str(OUTPUT_DIR+"/alignments/{sample}.sorted.idxstats.tsv"))
+	shell:
+		"""
+		samtools idxstats {input} > {output}
+		"""
 rule calculate_coverage:
 	input:
 		str(OUTPUT_DIR+"/alignments/{sample}.bam")
 	output:
-		str(OUTPUT_DIR+"/alignments/{sample}.genomecoverage.txt")
+		temp(str(OUTPUT_DIR+"/alignments/{sample}.genomecoverage.txt"))
 	shell:
 		"""
 		samtools view -b {input}|genomeCoverageBed -ibam stdin|grep -v 'genome'| perl scripts/coverage_counter.pl > {output}	
+		"""
+rule combine_coverage_stats:
+	input:
+		cov = str(OUTPUT_DIR+"/alignments/{sample}.genomecoverage.txt"),
+		stats = str(OUTPUT_DIR+"/alignments/{sample}.sorted.idxstats.tsv")
+	output:
+		str(OUTPUT_DIR+"/alignments/{sample}.align.summary.txt")
+
+	shell:
+		"""
+		Rscript scripts/summarize_alignments.R {input.cov} {input.stats} {output}
 		"""
 
 #Make it so that this requires the output of calculate_coverage
 rule all_summary:
 	input:
-		expand(OUTPUT_DIR+"/alignments/{sample}.genomecoverage.txt",sample=config["samples"])
+		expand(OUTPUT_DIR+"/alignments/{sample}.align.summary.txt",sample=config["samples"])
 	output:
 		str(OUTPUT_DIR+"/alignments/summary2.txt")
 	params:
-		cov_dir = str(OUTPUT_DIR + "/alignments/")
+		align_dir = str(OUTPUT_DIR + "/alignments/")
 	shell:
-		"cat {params.cov_dir}*.txt > {params.cov_dir}summary2.txt"
+		"cat {params.align_dir}*.align.summary.txt > {params.align_dir}summary2.txt"
 
 
 

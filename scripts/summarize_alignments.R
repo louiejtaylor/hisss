@@ -20,7 +20,7 @@ if(is.na(cov))
   stop("Coverage file not defined.")
 }
 
-if(is.na(read_fp)) 
+if(is.na(read)) 
 {
   stop("Mapped read file not defined.")
 }
@@ -30,17 +30,18 @@ if(is.na(output))
   stop("Output file not defined")
 }
 
-#Define sample name
-cov <- "test-A.genomecoverage.txt"
-read <- "test-A.sorted.idxstats.tsv"
+#Define sample name------------------------------------------------------------
+# cov <- "test-A.genomecoverage.txt"
+# read <- "test-A.sorted.idxstats.tsv"
 sample_name = sub(".genomecoverage.txt", "", cov)
+sample_name = sub(".*\\/", "", sample_name)
 
-##Build a dataframe of coverage and mapped reads after very sensitive local alignment of paired reads. Works.
+##Build a dataframe of coverage and mapped reads-------------------------------
 cov_df <- read.delim(cov, sep = "\t", header=F)
 cov_df$V3 <- sample_name
 colnames(cov_df) <- c("AlignTarget", "Coverage", "Sample")
 
-read_df <-read.delin(read, sep = "\t", header=F)
+read_df <-read.delim(read, sep = "\t", header=F)
 read_df$V5 <-sample_name
 colnames(read_df) <- c("AlignTarget", "TargetLength", 
                        "MappedReads", "UnmappedReads", 
@@ -54,6 +55,6 @@ all_align_data <- merge(cov_df, read_df,
                         all.x = TRUE, all.y = TRUE)
 
 ##Write output
-write.csv(all_align_data, file = output, row.names = FALSE)
+write.table(all_align_data, sep = "\t", file = output, row.names = FALSE)
 
 

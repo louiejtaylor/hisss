@@ -27,7 +27,6 @@ rule process_alignment:
 		bam = str(OUTPUT_DIR+"/alignments/{sample}.bam"),
 		sorted = str(OUTPUT_DIR+"/alignments/{sample}.sorted.bam"),
 		bai = str(OUTPUT_DIR+"/alignments/{sample}.sorted.bam.bai"),
-		stats = str(OUTPUT_DIR+"/alignments/{sample}.sorted.idxstats.tsv")
 	params:
 		target = str(TARGETS)
 	shell:
@@ -35,18 +34,17 @@ rule process_alignment:
 		samtools view -bT {params.target} {input}  > {output.bam}
 		samtools sort -f {output.bam} {output.sorted}
 		samtools index {output.sorted} {output.bai}
-		samtools idxstats {output.sorted} > {output.stats}
 		"""
 
 rule temp_summary:
 	input:
 		expand(OUTPUT_DIR+"/alignments/{sample}.bam",sample=config["samples"])
 	output:
-		str(OUTPUT_DIR+"/alignments/summary.txt")
+		str(OUTPUT_DIR+"/alignments/summary1.txt")
 	params:
 		aln_dir = str(OUTPUT_DIR + "/alignments/")
 	shell:
-		"cat {params.aln_dir}*.tsv > {params.aln_dir}summary.txt"
+		"ls {params.aln_dir}*sorted.bam | wc -l > {params.aln_dir}summary1.txt"
 
 
 
