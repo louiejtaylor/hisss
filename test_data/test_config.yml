@@ -1,12 +1,11 @@
 dirs:
-  root: "test_data"
-  data: "fastq"
-  output: "test_out"
-  targets: "genomes/pcv.fasta"
+  data: "test_data/fastq"
+  output: "test_data/test_out"
+  targets: "test_data/genomes/pcv.fasta"
 
 input:
   format: "fastq"
-  paired: true
+  paired: True
 
 samples:
   test-B: ["testB_1.fastq","testB_2.fastq"]
