@@ -18,7 +18,7 @@ rule align_reads:
 	params:
 		index = str(config["dirs"]["root"]+"/"+config["dirs"]["targets"])
 	shell:
-		"bowtie2 -q --local -t --very-sensitive-local -x {params.index} -1 {input.r1} -2 {input.r2} -S {output}"
+		"bowtie2 -q --local -t --very-sensitive-local --no-mixed --no-discordant -x {params.index} -1 {input.r1} -2 {input.r2} -S {output}"
 
 rule process_alignment:
 	input:
