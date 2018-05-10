@@ -6,6 +6,7 @@
 
 # Authors: Louis Taylor and Arwa Abbas
 
+include: "rules/summary.rules"
 include: "rules/align.rules"
 
 rule all:
