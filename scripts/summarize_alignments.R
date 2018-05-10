@@ -6,27 +6,23 @@
 
 #Import libraries
 library(methods)
-library(plyr)
-library(dplyr)
-library(magrittr)
-library(reshape2)
 
 #Set up argument parser and QC-------------------------------------------------
 args <- commandArgs()
 
 #print(args)
-cov_fp <- args[6]
-read_fp <-args[7]
+cov <- args[6]
+read <-args[7]
 output <-args[8]
 
-if(is.na(cov_fp)) 
+if(is.na(cov)) 
 {
-  stop("Coverage filepath not defined.")
+  stop("Coverage file not defined.")
 }
 
 if(is.na(read_fp)) 
 {
-  stop("Mapped read filepath not defined.")
+  stop("Mapped read file not defined.")
 }
 
 if(is.na(output)) 
@@ -34,49 +30,30 @@ if(is.na(output))
   stop("Output file not defined")
 }
 
+#Define sample name
+cov <- "test-A.genomecoverage.txt"
+read <- "test-A.sorted.idxstats.tsv"
+sample_name = sub(".genomecoverage.txt", "", cov)
 
-##Build a dataframe of coverage after very sensitive local alignment of paired reads. Works.
+##Build a dataframe of coverage and mapped reads after very sensitive local alignment of paired reads. Works.
+cov_df <- read.delim(cov, sep = "\t", header=F)
+cov_df$V3 <- sample_name
+colnames(cov_df) <- c("AlignTarget", "Coverage", "Sample")
 
-fc_files <- list.files(path=cov_fp, 
-                       recursive = TRUE, 
-                       full.names = TRUE, 
-                       pattern = glob2rx("*_genomecoverage.txt"))
+read_df <-read.delin(read, sep = "\t", header=F)
+read_df$V5 <-sample_name
+colnames(read_df) <- c("AlignTarget", "TargetLength", 
+                       "MappedReads", "UnmappedReads", 
+                      "Sample")
+read_df <- subset(read_df, AlignTarget != "*", 
+                  select = c(Sample, AlignTarget, TargetLength, MappedReads))
 
-fc_df <- data.frame(Virus=factor(), 
-                    Coverage=numeric(),
-                    AlignmentSample=factor(), 
-                    SampleID=factor(),
-                    StudyID=factor())
+#Merge data. Keep all observations
+all_align_data <- merge(cov_df, read_df, 
+                        by = c("Sample", "AlignTarget"), 
+                        all.x = TRUE, all.y = TRUE)
 
-for (i in 1:length(fc_files)) {
-  file_name = fc_files[i]
-  if(file.info(fc_files[i])$size != 0) { 
-    alignment_name = sub("_genomecoverage.txt", "", file_name) %>% 
-      sub(".*Coverage/", "", .) 
-    
-    study_name = sub("_genomecoverage.txt", "", file_name) %>% 
-      sub(".*Alignments/", "", .) %>% 
-      sub("/Coverage.*", "", .)
-    
-    sample <- read.delim(file_name, sep="\t", header=F) 
-    sample$V3 <- alignment_name
-    sample$V4 <- sub("all_viruses_", "", sample$V3)
-    sample$V5 <- study_name
-    colnames(sample) <- c("Virus", "Coverage", "AlignmentSample", 
-                          "SampleID", "StudyID")
-    fc_df <- rbind(fc_df,sample) 
-  }
-}
+##Write output
+write.csv(all_align_data, file = output, row.names = FALSE)
 
-fc_df <- mutate(fc_df, Virus = droplevels(Virus), 
-                AlignmentSample = as.factor(AlignmentSample), 
-                SampleID = as.factor(SampleID), 
-                StudyID = as.factor(StudyID))
 
-#Clean up
-rm(file_name)
-rm(fc_files)
-rm(i)
-rm(study_name)
-rm(alignment_name)
-rm(sample)

@@ -4,7 +4,7 @@ rule calculate_coverage:
 	input:
 		str(OUTPUT_DIR+"/alignments/{sample}.bam")
 	output:
-		str(OUTPUT_DIR+"/alignments/coverage/{sample}.genomecoverage.txt")
+		str(OUTPUT_DIR+"/alignments/{sample}.genomecoverage.txt")
 	shell:
 		"""
 		samtools view -b {input}|genomeCoverageBed -ibam stdin|grep -v 'genome'| perl scripts/coverage_counter.pl > {output}	
@@ -13,11 +13,11 @@ rule calculate_coverage:
 #Make it so that this requires the output of calculate_coverage
 rule all_summary:
 	input:
-		expand(OUTPUT_DIR+"/alignments/coverage/{sample}.genomecoverage.txt",sample=config["samples"])
+		expand(OUTPUT_DIR+"/alignments/{sample}.genomecoverage.txt",sample=config["samples"])
 	output:
-		str(OUTPUT_DIR+"/alignments/coverage/summary2.txt")
+		str(OUTPUT_DIR+"/alignments/summary2.txt")
 	params:
-		cov_dir = str(OUTPUT_DIR + "/alignments/coverage/")
+		cov_dir = str(OUTPUT_DIR + "/alignments/")
 	shell:
 		"cat {params.cov_dir}*.txt > {params.cov_dir}summary2.txt"
 
