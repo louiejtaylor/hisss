@@ -6,7 +6,7 @@
 
 # Authors: Louis Taylor and Arwa Abbas
 
-include: "rules/download.rules"
+#include: "rules/download.rules"
 
 include: "rules/align.rules"
 
@@ -14,7 +14,7 @@ include: "rules/summary.rules"
 
 rule all:
 	input:
-		str(config["dirs"]["root"]+"/"+config["dirs"]["output"]+"/alignments/summary.txt")
+		rules.temp_summary.output
 
 #rule grab_data:
 #	input:
