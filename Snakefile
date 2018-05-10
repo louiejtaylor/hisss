@@ -14,7 +14,7 @@ include: "rules/summary.rules"
 
 rule all:
 	input:
-		rules.temp_summary.output
+		rules.all_summary.output
 
 #rule grab_data:
 #	input:
