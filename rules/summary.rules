@@ -4,7 +4,7 @@ rule mapping_stats:
 	input: 
 		str(OUTPUT_DIR+"/alignments/{sample}.sorted.bam")
 	output:
-		temp(str(OUTPUT_DIR+"/alignments/{sample}.sorted.idxstats.tsv"))
+		str(OUTPUT_DIR+"/alignments/{sample}.sorted.idxstats.tsv")
 	shell:
 		"""
 		samtools idxstats {input} > {output}
@@ -13,7 +13,7 @@ rule calculate_coverage:
 	input:
 		str(OUTPUT_DIR+"/alignments/{sample}.bam")
 	output:
-		temp(str(OUTPUT_DIR+"/alignments/{sample}.genomecoverage.txt"))
+		str(OUTPUT_DIR+"/alignments/{sample}.genomecoverage.txt")
 	shell:
 		"""
 		samtools view -b {input}|genomeCoverageBed -ibam stdin|grep -v 'genome'| perl scripts/coverage_counter.pl > {output}	
@@ -23,7 +23,7 @@ rule combine_coverage_stats:
 		cov = str(OUTPUT_DIR+"/alignments/{sample}.genomecoverage.txt"),
 		stats = str(OUTPUT_DIR+"/alignments/{sample}.sorted.idxstats.tsv")
 	output:
-		temp(str(OUTPUT_DIR+"/alignments/{sample}.align.summary.txt"))
+		str(OUTPUT_DIR+"/alignments/{sample}.align.summary.txt")
 
 	shell:
 		"""
