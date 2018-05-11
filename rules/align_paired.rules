@@ -32,7 +32,7 @@ rule process_alignment:
 	shell:
 		"""
 		samtools view -bT {params.target} {input} > {output.bam}
-		samtools sort -T /tmp/aln.sorted -o {output.sorted} {output.bam}
+		samtools sort -o {output.sorted} {output.bam}
 		samtools index {output.sorted} {output.bai}
 		"""
 
