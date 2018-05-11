@@ -30,12 +30,11 @@ if(is.na(output))
 #Convert to a dataframe if a positive hit--------------------------------------
 cov_df <- if(!file.size(cov) == 0){
       read.table(cov, sep = "\t")
+      } else {
+      quit()
 }
 
 colnames(cov_df) <- c("AlignTarget", "Position", "Count")
-
-#Exit quietly if dataframe doesn't exit?
-
 
 #Coverage Maps-----------------------------------------------------------------
 
