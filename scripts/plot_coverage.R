@@ -22,15 +22,18 @@ if(!file_test("-f", cov))
   stop("Coverage file not defined.")
 }
 
-if(is.na(output)) 
-{
-  stop("Output file not defined.")
-}
+ if(is.na(output)) 
+ {
+   stop("Output file not defined.")
+ }
 
 #Convert to a dataframe if a positive hit--------------------------------------
-cov_df <- if(!file.size(cov) == 0){
-      read.table(cov, sep = "\t")
-}
+
+if(!file.size(cov) == 0){
+      cov_df <-read.table(cov, sep = "\t") 
+      } else { 
+        quit()
+  }
 
 colnames(cov_df) <- c("AlignTarget", "Position", "Count")
 
