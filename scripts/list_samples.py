@@ -6,7 +6,12 @@
 import os, sys
 
 # TODO: grab using argparse
-patt = "{sample}_pass_{rp}.fastq"
+
+try:
+	patt=sys.argv[2]
+except IndexError:
+	patt = "{sample}_pass_{rp}.fastq"
+
 extension = patt.split('.')[-1]
 
 fastqs = [f for f in os.listdir(sys.argv[1]) if f.endswith(extension)]
