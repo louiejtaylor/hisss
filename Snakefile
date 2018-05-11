@@ -21,8 +21,8 @@ if config["io"]["download"] == False:
 	include: "rules/local_data.rules"
 
 
-print(type(config["samples"]))
-print(config["samples"])
+#print(type(config["samples"]))
+#print(config["samples"])
 
 # Rules
 

@@ -9,6 +9,6 @@ rule symlink_local_data:
 		r2 = str(DATA_DIR+"/{sample}_2.fastq")
 	shell:
 		"""
-		ln -s {input.r1} {output.r1}
-		ln -s {input.r2} {output.r2}
+		ln -sr {input.r1} {output.r1}
+		ln -sr {input.r2} {output.r2}
 		"""

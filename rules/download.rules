@@ -1,16 +1,41 @@
 # -*- mode: Snakemake -*-
 
+rule split_samples:
+	input:
+		str(config["io"]["file_list"])
+	output:
+		r1 = str(DATA_DIR+"/targets/{sample}_1"),
+		r2 = str(DATA_DIR+"/targets/{sample}_2")
+		#r1 = lambda wildcards: config["samples"][wildcards.sample][0],
+		#r2 = lambda wildcards: config["samples"][wildcards.sample][1]
+	params:
+		outdir = str(OUTPUT_DIR+"/download/targets/")
+	run:
+		f = open(input[0],"r")
+		shell("mkdir -p " + params.outdir)
+		for l in f.readlines():
+			info = [i.strip() for i in l.split(",")]
+			r1 = open(params.outdir+info[0]+"_1","w")
+			r2 = open(params.outdir+info[0]+"_2","w")
+			r1.write(info[1]); r2.write(info[2])
+			r1.close(); r2.close()
+
 rule grab_data:
 	input:
-		r1 = lambda wildcards: config["samples"][wildcards.sample][0],
-		r2 = lambda wildcards: config["samples"][wildcards.sample][1]
+		rules.split_samples.output,
+		r1 = str(DATA_DIR+"/targets/{sample}_1"),
+		r2 = str(DATA_DIR+"/targets/{sample}_2")
+		#r1 = lambda wildcards: config["samples"][wildcards.sample][0],
+		#r2 = lambda wildcards: config["samples"][wildcards.sample][1]
 	output:
 		r1 = str(DATA_DIR+"/{sample}_1.fastq.gz"),
 		r2 = str(DATA_DIR+"/{sample}_2.fastq.gz")
+#	params:
+#		infodir = str(OUTPUT_DIR+"/download/targets/")
 	shell:
 		"""
-		wget -o {output.r1} {input.r1}
-		wget -o {output.r2} {input.r2}
+		wget -O {output.r1} `cat {input.r1}`
+		wget -O {output.r2} `cat {input.r2}`
 		"""
 
 rule format_data:

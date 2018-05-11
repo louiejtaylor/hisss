@@ -10,8 +10,8 @@ rule build_index:
 
 rule align_reads:
 	input:
-		r1 = lambda wildcards: DATA_DIR+"/"+config["samples"][wildcards.sample][0],
-		r2 = lambda wildcards: DATA_DIR+"/"+config["samples"][wildcards.sample][1],
+		r1 = str(DATA_DIR+"/{sample}_1.fastq"),
+		r2 = str(DATA_DIR+"/{sample}_2.fastq"),
 		index = str(TARGETS+".1.bt2")
 	output:
 		str(OUTPUT_DIR+"/alignments/{sample}.sam")

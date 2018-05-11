@@ -1,5 +1,5 @@
 # Testing output
-test_data/test_out/
+test_data/output/
 .snakemake
 
 # Alignment files

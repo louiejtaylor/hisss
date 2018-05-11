@@ -1,5 +1,5 @@
 io:
-  download: False
+  download: True
   file_list: "test_data/samples.csv"
 #  format: "fastq"
   paired: True
@@ -10,8 +10,8 @@ align:
   targets: "test_data/genomes/pcv.fasta"
 
 samples:
-#  test-B: ["https://github.com/louiejtaylor/viruSnake/blob/master/test_data/fastq/gz/test-B_1.fastq.gz?raw=true","https://github.com/louiejtaylor/viruSnake/blob/master/test_data/fastq/gz/test-B_2.fastq.gz?raw=true"]
-#  test-A: ["https://github.com/louiejtaylor/viruSnake/blob/master/test_data/fastq/gz/test-A_1.fastq.gz?raw=true","https://github.com/louiejtaylor/viruSnake/blob/master/test_data/fastq/gz/test-A_2.fastq.gz?raw=true"]
-
-  test-B: ["test-B_1.fastq","test-B_2.fastq"]
-  test-A: ["test-A_1.fastq","test-A_2.fastq"]
+  test-B: ["test-B_1","test-B_2"]
+  test-A: ["test-A_1","test-A_2"]
+#
+#  test-B: ["test-B_1.fastq","test-B_2.fastq"]
+#  test-A: ["test-A_1.fastq","test-A_2.fastq"]
