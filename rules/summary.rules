@@ -35,12 +35,12 @@ rule all_summary:
 	input:
 		expand(OUTPUT_DIR+"/alignments/{sample}.align.summary.txt",sample=config["samples"])
 	output:
-		str(OUTPUT_DIR+"/alignments/summary3.txt")
+		str(OUTPUT_DIR+"/summary/summary3.txt")
 	params:
 		align_dir = str(OUTPUT_DIR + "/alignments/")
 	shell:
 		"""
-		echo -e "Sample\tAlignTarget\tFractionCoverage\tTargetLength\tMappedReads" > {params.align_dir}summary3.txt
-		cat {params.align_dir}*.align.summary.txt >> {params.align_dir}summary3.txt
+		echo -e "Sample\tAlignTarget\tFractionCoverage\tTargetLength\tMappedReads" > {output}
+		cat {params.align_dir}*.align.summary.txt >> {output}
 		"""
 
