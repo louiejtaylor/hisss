@@ -40,5 +40,5 @@ include: "rules/plot.rules"
 rule all:
 	input:
 		rules.all_summary.output,
-		#rules.grab_data.output
+		rules.all_plot.output
 
