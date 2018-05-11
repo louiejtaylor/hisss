@@ -4,13 +4,15 @@ rule plot_depth:
 	input:
 		str(OUTPUT_DIR+"/alignments/{sample}.sorted.bam")
 	output:
-		cov=str(OUTPUT_DIR+"/alignments/plots/{sample}.cov.depth.txt"),
-		plot=str(OUTPUT_DIR+"/alignments/plots/{sample}.cov.pdf")
+		cov=str(OUTPUT_DIR+"/alignments/plots/{sample}.cov.depth.txt")
+
+	params:	plot=str(OUTPUT_DIR+"/alignments/plots/{sample}.cov.pdf")
+
 	shell:
 		"""
 		samtools depth -a {input} > {output.cov}	
 		if [ -s {output.cov} ]; then
-			Rscript scripts/plot_coverage.R {output.cov} {output.plot};
+			Rscript scripts/plot_coverage.R {output.cov} {params.plot};
 		else
 			echo "No valid alignments detected";
 		fi
