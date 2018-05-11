@@ -1,0 +1,35 @@
+# -*- mode: Snakemake -*-
+
+rule calculate_depth:
+	input:
+		str(OUTPUT_DIR+"/alignments/{sample}.sorted.bam")
+	output:
+		str(OUTPUT_DIR+"/alignments/plots/{sample}.cov.depth.txt")
+	shell:
+		"""
+		samtools depth -a {input} > {output}	
+		"""
+
+rule plot:
+	input:
+		str(OUTPUT_DIR+"/alignments/plots/{sample}.cov.depth.txt")
+	output:
+		str(OUTPUT_DIR+"/alignments/plots/{sample}.cov.pdf")
+	shell:
+		"""
+                Rscript scripts/plot_coverage.R {input} {output}
+		"""
+
+#Combine information for all samples into a single file
+rule all_plot:
+	input:
+		expand(OUTPUT_DIR+"/alignments/plots/{sample}.cov.pdf",sample=config["samples"])
+	output:
+		str(OUTPUT_DIR+"/alignments/plots/summary4.txt")
+	params:
+		plot_dir = str(OUTPUT_DIR + "/alignments/plots/")
+	shell:
+		"""
+		cat {params.plot_dir}*.cov.depth.txt > {params.plot_dir}summary4.txt
+		"""
+

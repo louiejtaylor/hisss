@@ -35,6 +35,8 @@ else:
 
 include: "rules/summary.rules"
 
+include: "rules/plot.rules"
+
 rule all:
 	input:
 		rules.all_summary.output,
