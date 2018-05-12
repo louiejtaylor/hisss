@@ -1,0 +1,13 @@
+#-*- mode: Snakemake -*-
+
+rule align_reads:
+	input:
+		r = str(DATA_DIR+"/{sample}.fastq"),
+		index = str(TARGETS+".1.bt2")
+	output:
+		str(OUTPUT_DIR+"/alignments/{sample}.sam")
+	params:
+		index = str(TARGETS)
+	shell:
+		"bowtie2 -q --local -t --very-sensitive-local -x {params.index} -U {input.r} -S {output}"
+

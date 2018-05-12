@@ -1,13 +1,5 @@
 #-*- mode: Snakemake -*-
 
-rule build_index:
-	input:
-		str(TARGETS)
-	output:
-		str(TARGETS+".1.bt2")
-	shell:
-		"bowtie2-build -f {input} {input}"
-
 rule align_reads:
 	input:
 		r1 = str(DATA_DIR+"/{sample}_1.fastq"),
@@ -19,6 +11,7 @@ rule align_reads:
 		index = str(TARGETS)
 	shell:
 		"bowtie2 -q --local -t --very-sensitive-local --no-mixed --no-discordant -x {params.index} -1 {input.r1} -2 {input.r2} -S {output}"
+<<<<<<< HEAD
 
 rule process_alignment:
 	input:
@@ -49,3 +42,5 @@ rule all_sample_summary:
 
 
 
+=======
+>>>>>>> 501c78e425b10b1bb4e7e0bc172504e7b7fc21dd

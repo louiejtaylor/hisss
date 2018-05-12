@@ -1,8 +1,7 @@
 io:
-  download: True
+  download: False
   file_list: "test_data/samples.csv"
-#  format: "fastq"
-  paired: True
+  paired: False
   data: "test_data/fastq"
   output: "test_data/output"
 
@@ -10,8 +9,17 @@ align:
   targets: "test_data/genomes/pcv.fasta"
 
 samples:
-  test-B: ["test-B_1","test-B_2"]
-  test-A: ["test-A_1","test-A_2"]
-#
+
+# For testing external paired (set download: True, paired: True)
+#  test-B: ["test-B_1","test-B_2"]
+#  test-A: ["test-A_1","test-A_2"]
+
+# For testing local paired (set download: False, paired: True)
 #  test-B: ["test-B_1.fastq","test-B_2.fastq"]
 #  test-A: ["test-A_1.fastq","test-A_2.fastq"]
+
+# For testing local unpaired (set download: False, paired: False)
+  test-A_2: 'test-A_2.fastq'
+  test-A_1: 'test-A_1.fastq'
+  test-B_1: 'test-B_1.fastq'
+  test-B_2: 'test-B_2.fastq'
