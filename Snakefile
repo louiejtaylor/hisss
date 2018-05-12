@@ -7,21 +7,24 @@
 # Authors: Louis Taylor and Arwa Abbas
 
 # Setup
+
 OUTPUT_DIR = str(config["io"]["output"])
 LOCAL_DATA_DIR = str(config["io"]["data"])
 TARGETS = str(config["align"]["targets"])
 DATA_DIR = str(config["io"]["output"]+"/download")
 
 # Rules
+
+un = not config["io"]["paired"]
+
 if config["io"]["download"] == False:
-	include: "rules/local_data.rules"
+	include: "rules/local_data_"+ un*"un"+"paired.rules"
 else:
 	include: "rules/download.rules"
 
-if config["io"]["paired"] == True:
-	include: "rules/align_paired.rules"
-else:
-	include: "rules/align_single.rules"
+include: "rules/align_"+un*"un"+"paired.rules"
+
+include: "rules/process_alignment.rules"
 
 include: "rules/summary.rules"
 

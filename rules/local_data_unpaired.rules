@@ -1,0 +1,11 @@
+# -*- mode: Snakemake -*-
+
+rule symlink_local_data:
+	input:
+		lambda wildcards: LOCAL_DATA_DIR+"/"+config["samples"][wildcards.sample]
+	output:
+		str(DATA_DIR+"/{sample}.fastq")
+	shell:
+		"""
+		ln -sr {input} {output}
+		"""

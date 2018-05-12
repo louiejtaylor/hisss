@@ -1,13 +1,5 @@
 #-*- mode: Snakemake -*-
 
-rule build_index:
-	input:
-		str(TARGETS)
-	output:
-		str(TARGETS+".1.bt2")
-	shell:
-		"bowtie2-build -f {input} {input}"
-
 rule align_reads:
 	input:
 		r1 = str(DATA_DIR+"/{sample}_1.fastq"),
@@ -19,32 +11,3 @@ rule align_reads:
 		index = str(TARGETS)
 	shell:
 		"bowtie2 -q --local -t --very-sensitive-local --no-mixed --no-discordant -x {params.index} -1 {input.r1} -2 {input.r2} -S {output}"
-
-rule process_alignment:
-	input:
-		str(OUTPUT_DIR+"/alignments/{sample}.sam")
-	output:
-		bam = str(OUTPUT_DIR+"/alignments/{sample}.bam"),
-		sorted = str(OUTPUT_DIR+"/alignments/{sample}.sorted.bam"),
-		bai = str(OUTPUT_DIR+"/alignments/{sample}.sorted.bam.bai"),
-	params:
-		target = str(TARGETS)
-	shell:
-		"""
-		samtools view -bT {params.target} {input} > {output.bam}
-		samtools sort -o {output.sorted} {output.bam}
-		samtools index {output.sorted} {output.bai}
-		"""
-
-rule temp_summary:
-	input:
-		expand(OUTPUT_DIR+"/alignments/{sample}.bam",sample=config["samples"])
-	output:
-		str(OUTPUT_DIR+"/alignments/summary1.txt")
-	params:
-		aln_dir = str(OUTPUT_DIR + "/alignments/")
-	shell:
-		"ls {params.aln_dir}*sorted.bam | wc -l > {params.aln_dir}summary1.txt"
-
-
-

@@ -3,7 +3,7 @@ A snakemake workflow to download/align reads to targets and produce useful outpu
 
 ## Installing
 
-Getting it up and running is hopefully simple (maybe there'll be an install script to handle this later):
+Getting it up and running is hopefully simple:
 
     git clone https://github.com/louiejtaylor/viruSnake
     cd viruSnake
