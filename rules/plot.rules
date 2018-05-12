@@ -18,22 +18,12 @@ rule plot_depth:
 		fi
 		"""
 
-#rule plot:
-#	input:
-#		str(OUTPUT_DIR+"/alignments/plots/{sample}.cov.depth.txt")
-#	output:
-#		str(OUTPUT_DIR+"/alignments/plots/{sample}.cov.pdf")
-#	shell:
-#		"""
- #               Rscript scripts/plot_coverage.R {input} {output}
-#		"""
-
 #Combine information for all samples into a single file
 rule all_plot:
 	input:
 		expand(OUTPUT_DIR+"/summary/plots/{sample}.cov.depth.txt",sample=config["samples"])
 	output:
-		str(OUTPUT_DIR+"/summary/summary4.txt")
+		str(OUTPUT_DIR+"/summary/all_plot_summary.txt")
 	params:
 		plot_dir = str(OUTPUT_DIR + "/summary/plots/")
 	shell:

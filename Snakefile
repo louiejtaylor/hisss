@@ -29,6 +29,7 @@ include: "rules/plot.rules"
 
 rule all:
 	input:
+		rules.all_sample_summary.output,
 		rules.all_summary.output,
 		rules.all_plot.output
 
