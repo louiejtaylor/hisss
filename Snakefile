@@ -1,4 +1,4 @@
-# Snakemake workflow ot align reads to one or more 
+# Snakemake workflow to align reads to one or more 
 # genomic sequences and produce useful outputs including 
 # coverage maps and summary tables.
 #
@@ -6,27 +6,17 @@
 #
 # Authors: Louis Taylor and Arwa Abbas
 
-#from collections import OrderedDict
-
-#def get_sample_urls():
-#	return OrderedDict({"testA-1":"https://github.com/louiejtaylor/viruSnake/blob/master/test_data/fastq/gz/testA_1.fastq.gz?raw=true", "testA-2":"https://github.com/louiejtaylor/viruSnake/blob/master/test_data/fastq/gz/testA_2.fastq.gz?raw=true"})
-
 # Setup
 OUTPUT_DIR = str(config["io"]["output"])
 LOCAL_DATA_DIR = str(config["io"]["data"])
 TARGETS = str(config["align"]["targets"])
 DATA_DIR = str(config["io"]["output"]+"/download")
 
+# Rules
 if config["io"]["download"] == False:
 	include: "rules/local_data.rules"
-
-
-#print(type(config["samples"]))
-#print(config["samples"])
-
-# Rules
-
-include: "rules/download.rules"
+else:
+	include: "rules/download.rules"
 
 if config["io"]["paired"] == True:
 	include: "rules/align_paired.rules"
