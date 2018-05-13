@@ -15,14 +15,14 @@ DATA_DIR = str(config["io"]["output"]+"/download")
 
 # Rules
 
-un = not config["io"]["paired"]
+un = "un"*int(not config["io"]["paired"])
 
 if config["io"]["download"] == False:
-	include: "rules/local_data_"+ un*"un"+"paired.rules"
+	include: "rules/local_data_"+ un +"paired.rules"
 else:
-	include: "rules/download.rules"
+	include: "rules/download_"+ un +"paired.rules"
 
-include: "rules/align_"+un*"un"+"paired.rules"
+include: "rules/align_"+ un +"paired.rules"
 
 include: "rules/process_alignment.rules"
 
