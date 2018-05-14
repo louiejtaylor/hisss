@@ -1,17 +1,17 @@
-# viruSnake
-A snakemake workflow to download/align reads to targets and produce useful outputs. 
+# boa-constructor
+A snakemake workflow to download/align reads to targets and produce useful outputs. Stands for BOwtie Alignment constructor.
 
 ## Installing
 
 Getting it up and running is hopefully simple:
 
-    git clone https://github.com/louiejtaylor/viruSnake
-    cd viruSnake
+    git clone https://github.com/louiejtaylor/boa-constructor
+    cd boa-constructor
     
 We use conda to handle dependencies, you can install miniconda from [here](https://conda.io/miniconda.html). Make a new conda enviroment, then install dependencies from `requirements.txt` like so:
     
-    conda create -n viruSnake
-    source activate viruSnake
+    conda create -n boa-constructor
+    source activate boa-constructor
     conda install -c bioconda -c conda-forge --file requirements.txt 
     
 Conda is great for managing dependencies and environments without requiring any admin privileges.
