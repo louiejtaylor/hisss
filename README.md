@@ -1,17 +1,17 @@
-# boa-constructor
-A snakemake workflow to download/align reads to targets and produce useful outputs. Stands for BOwtie Alignment constructor.
+# hisss
+A snakemake workflow to download/align reads to targets and produce useful outputs. Stands for HIgh-throughput Sequence Searching Software
 
 ## Installing
 
 Getting it up and running is hopefully simple:
 
-    git clone https://github.com/louiejtaylor/boa-constructor
-    cd boa-constructor
+    git clone https://github.com/louiejtaylor/hisss
+    cd hisss
     
 We use conda to handle dependencies, you can install miniconda from [here](https://conda.io/miniconda.html). Make a new conda enviroment, then install dependencies from `requirements.txt` like so:
     
-    conda create -n boa-constructor
-    source activate boa-constructor
+    conda create -n hisss
+    source activate hisss
     conda install -c bioconda -c conda-forge --file requirements.txt 
     
 Conda is great for managing dependencies and environments without requiring any admin privileges.
