@@ -1,5 +1,6 @@
 io:
   download: True 
+  sra: False
   file_list: "test_data/samples_unpaired.csv"
   paired: False
   data: "test_data/fastq"

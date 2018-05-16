@@ -1,0 +1,38 @@
+# -*- mode: Snakemake -*-
+
+#rule split_samples:
+#
+#	output:
+#		expand(DATA_DIR+"/{sample}.txt",sample=config["samples"])
+#	run:
+#		for f in output:
+#			z=open(f,"w")
+#			z.write("!")
+#			z.close()
+#			print("{sample}")
+
+rule download_sra:
+#	input:
+#		rules.split_samples.output
+	output:
+		r1=str(DATA_DIR+"/{sample}_1.fastq"),
+		r2=str(DATA_DIR+"/{sample}_2.fastq")
+	params:
+		outdir = str(DATA_DIR+"/"),
+		samp = str('{sample}')
+	shell:
+		"""
+		fastq-dump --split-files --skip-technical -O {params.outdir} {params.samp}
+		"""
+
+rule all_download:
+	input:
+		expand(DATA_DIR+"/{sample}_1.fastq",sample=config["samples"])
+	output:
+		temp(str(OUTPUT_DIR+"summary/all_download_summary.txt"))
+	params:
+		data = str(DATA_DIR)
+	shell:
+		"ls {params.data} > {output}"
+
+

@@ -6,7 +6,7 @@
 import os, argparse, re
 
 # Set up parser
-parser = argparse.ArgumentParser(description='List samples to be added to boa-constructor config file.')
+parser = argparse.ArgumentParser(description='List samples to be added to hisss config file.')
 parser.add_argument('dir', type=str, help='data directory')
 parser.add_argument('-pattern', dest="pattern", default="DEFAULT", type=str, help='pattern for constant parts of sample names, like {sample}_{rp}.fastq for paired or {sample}.fastq for unpaired')
 parser.add_argument('--unpaired', dest="paired", default=True, const=False, action="store_const", help="unpaired reads")

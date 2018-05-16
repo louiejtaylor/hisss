@@ -20,7 +20,10 @@ un = "un"*int(not config["io"]["paired"])
 if config["io"]["download"] == False:
 	include: "rules/local_data_"+ un +"paired.rules"
 else:
-	include: "rules/download_"+ un +"paired.rules"
+	if config["io"]["sra"] == True:
+		include: "rules/sra.rules"
+	else:
+		include: "rules/download_"+ un +"paired.rules"
 
 include: "rules/align_"+ un +"paired.rules"
 

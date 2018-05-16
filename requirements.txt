@@ -2,3 +2,4 @@ snakemake
 bowtie2
 samtools=1.8
 bedtools=2.25.0
+sra-tools

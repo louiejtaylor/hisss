@@ -32,4 +32,4 @@ rule all_sample_summary:
 	params:
 		aln_dir = str(OUTPUT_DIR + "/alignments/")
 	shell:
-		 "ls {params.aln_dir}*sorted.bam | wc -l > {output}"
+		"ls {params.aln_dir}*sorted.bam | wc -l > {output}"
