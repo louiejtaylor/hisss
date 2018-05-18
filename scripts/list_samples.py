@@ -1,8 +1,9 @@
-#!/usr/bin/python2
+#!/usr/bin/python
 
 # Script to list (paired) samples in a target directory
 # matching a particular pattern.
 
+from __future__ import print_function
 import os, argparse, re
 
 # Set up parser
@@ -42,8 +43,9 @@ ids = list(set([g.group(1) for g in [re.search(re_pattern, f) for f in files] if
 if len(ids)==0:
 	raise Exception("No samples detected with pattern: "+pattern)
 
+print("samples:")
 for i in ids:
 	if args.paired:
-		print "  "+ i + ": ['"+pattern.replace("{sample}", i).replace("{rp}", '1')+"', '" +pattern.replace("{sample}", i).replace("{rp}", '2')+"']"
+		print("  "+ i + ": ['"+pattern.replace("{sample}", i).replace("{rp}", '1')+"', '" +pattern.replace("{sample}", i).replace("{rp}", '2')+"']")
 	else:
-		print "  "+ i + ": '"+pattern.replace("{sample}", i)+"'"
+		print("  "+ i + ": '"+pattern.replace("{sample}", i)+"'")

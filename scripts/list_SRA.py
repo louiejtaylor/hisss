@@ -27,6 +27,7 @@ for line in lines[1:]:
 
 # Output in config format
 print("study_metadata:")
+print("  sra: True")
 for k in info.keys():
 	if k != "Run":
 		print("  "+str(k)+": "+str(list(set(info[k]))))

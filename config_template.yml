@@ -1,0 +1,12 @@
+io:
+  # directories
+  data: "[data_dir]"
+  output: "[output_dir]"
+
+  # options
+  download: True 
+  paired: True
+
+align:
+  targets: "[path/to/target_seqs].fasta"
+

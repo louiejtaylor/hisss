@@ -1,5 +1,5 @@
 # hisss
-A snakemake workflow to download/align reads to targets and produce useful outputs. Stands for HIgh-throughput Sequence Searching Software
+A snakemake workflow to download/align reads to targets and produce useful outputs. Hisss stands for HIgh-throughput Sequence Searching Software.
 
 ## Installing
 
@@ -8,7 +8,7 @@ Getting it up and running is hopefully simple:
     git clone https://github.com/louiejtaylor/hisss
     cd hisss
     
-We use conda to handle dependencies, you can install miniconda from [here](https://conda.io/miniconda.html). Make a new conda enviroment, then install dependencies from `requirements.txt` like so:
+We use conda to handle dependencies; you can install miniconda from [here](https://conda.io/miniconda.html). Make a new conda enviroment, then install dependencies from `requirements.txt` like so:
     
     conda create -n hisss
     source activate hisss
@@ -16,13 +16,26 @@ We use conda to handle dependencies, you can install miniconda from [here](https
     
 Conda is great for managing dependencies and environments without requiring any admin privileges.
 
+## Configuration
+
+Hisss can run on both local and remote fastqs that are either paired or unpaired. The options in `config_template.yml` should be self-explanatory--just replace the placeholders with the info on your samples. 
+
+We include two utilites to simplify adding samples to your config file. If you're running on local samples, use `list_samples.py`. Let's say your fastqs are paired, located in `/project/fastq/`, and are named like "Sample_[sample_name]_R[pair].fastq":
+
+    ./scripts/list_samples.py -pattern "Sample_{sample}_R{rp}.fastq" /project/fastq/ >> my_config.yml
+
+This will append nicely formatted sample names to `my_config.yml`. If you're using SRA data, grabbing all the samples from a study is ass simple as passing the project identifier (SRP#) to `list_SRA.py` like so:
+    ./scripts/list_SRA.py SRP####### >> my_config.yml
+
+Running on arbitrary remote data is also supported (given data URLs), but this is about to be revamped to make it much easier to specify external URLs (so stay tuned!). By default, to keep the footprint small, we don't save most of the output (including downloaded fastqs) but if you'd like to keep them just remove the `temp()` from the rule definition.
+
 ## Running
 
-To run, all you need is a config file to point Snakemake to your data and targets (see `test_data/test_config.yml` for an example), then run the following in the viruSnake root dir:
+To run, simply execute the following in the hisss root dir:
 
-    snakemake -p --configfile [your_config.yml] all
+    snakemake -p --configfile [path/to/my_config.yml] all
     
-For an example, you can run the dummy data (which should complete very quickly):
+As an example, you can run the dummy data (which should complete very quickly):
 
     snakemake -p --configfile test_data/test_config.yml all
     
