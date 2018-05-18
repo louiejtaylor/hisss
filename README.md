@@ -20,11 +20,16 @@ Conda is great for managing dependencies and environments without requiring any 
 
 Hisss can run on both local and remote fastqs that are either paired or unpaired. The options in `config_template.yml` should be self-explanatory--just replace the placeholders with the info on your samples. 
 
-We include two utilites to simplify adding samples to your config file. If you're running on local samples, use `list_samples.py`. Let's say your fastqs are paired, located in `/project/fastq/`, and are named like "Sample_[sample_name]_R[pair].fastq":
+We include two utilites to simplify adding samples to your config file. If you're running on local samples, use `list_samples.py`. Let's say your fastqs are paired, located in `/project/fastq/`, and are named like `Sample_[sample_name]_R[pair].fastq`:
 
     ./scripts/list_samples.py -pattern "Sample_{sample}_R{rp}.fastq" /project/fastq/ >> my_config.yml
 
+<<<<<<< HEAD
 This will append nicely-formatted sample names to `my_config.yml`. If you're using SRA data, grabbing all the samples from a study is as simple as passing the project identifier (SRP#) to `list_SRA.py` like so:
+=======
+This will append nicely formatted sample names to `my_config.yml`. If you're using SRA data, grabbing all the samples from a study is ass simple as passing the project identifier (SRP#) to `list_SRA.py` like so:
+
+>>>>>>> 5219f1ff9045485f52ec740ea23dc5b7077c8fbf
     ./scripts/list_SRA.py SRP####### >> my_config.yml
 
 Running on arbitrary remote data is also supported (given data URLs), but this is about to be revamped to make it much easier to specify external URLs (so stay tuned!). By default, to keep the footprint small, we don't save most of the output (including downloaded fastqs) but if you'd like to keep them just remove the `temp()` from the rule definition.
