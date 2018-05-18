@@ -1,22 +1,9 @@
 # -*- mode: Snakemake -*-
 
-#rule split_samples:
-#
-#	output:
-#		expand(DATA_DIR+"/{sample}.txt",sample=config["samples"])
-#	run:
-#		for f in output:
-#			z=open(f,"w")
-#			z.write("!")
-#			z.close()
-#			print("{sample}")
-
 rule download_sra:
-#	input:
-#		rules.split_samples.output
 	output:
-		r1=str(DATA_DIR+"/{sample}_1.fastq"),
-		r2=str(DATA_DIR+"/{sample}_2.fastq")
+		r1=temp(str(DATA_DIR+"/{sample}_1.fastq")),
+		r2=temp(str(DATA_DIR+"/{sample}_2.fastq"))
 	params:
 		outdir = str(DATA_DIR+"/"),
 		samp = str('{sample}')
