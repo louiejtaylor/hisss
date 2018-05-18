@@ -12,14 +12,3 @@ rule download_sra:
 		fastq-dump --split-files --skip-technical -O {params.outdir} {params.samp}
 		"""
 
-rule all_download:
-	input:
-		expand(DATA_DIR+"/{sample}_1.fastq",sample=config["samples"])
-	output:
-		temp(str(OUTPUT_DIR+"summary/all_download_summary.txt"))
-	params:
-		data = str(DATA_DIR)
-	shell:
-		"ls {params.data} > {output}"
-
-
