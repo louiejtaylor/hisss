@@ -24,7 +24,7 @@ We include two utilites to simplify adding samples to your config file. If you'r
 
     ./scripts/list_samples.py -pattern "Sample_{sample}_R{rp}.fastq" /project/fastq/ >> my_config.yml
 
-This will append nicely formatted sample names to `my_config.yml`. If you're using SRA data, grabbing all the samples from a study is ass simple as passing the project identifier (SRP#) to `list_SRA.py` like so:
+This will append nicely-formatted sample names to `my_config.yml`. If you're using SRA data, grabbing all the samples from a study is as simple as passing the project identifier (SRP#) to `list_SRA.py` like so:
     ./scripts/list_SRA.py SRP####### >> my_config.yml
 
 Running on arbitrary remote data is also supported (given data URLs), but this is about to be revamped to make it much easier to specify external URLs (so stay tuned!). By default, to keep the footprint small, we don't save most of the output (including downloaded fastqs) but if you'd like to keep them just remove the `temp()` from the rule definition.
