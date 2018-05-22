@@ -18,7 +18,9 @@ Conda is great for managing dependencies and environments without requiring any 
 
 ## Configuration
 
-Hisss can run on both local and remote fastqs that are either paired or unpaired. The options in `config_template.yml` should be self-explanatory--just replace the placeholders with the info on your samples. We include two utilites to simplify adding samples to your config file: `list_SRA.py` and `list_samples.py`.
+Hisss can run on both local and remote fastqs that are either paired or unpaired. The options in `config_template.yml` should be self-explanatory--just replace the placeholders with the relevant paths to your samples and alignment targets.
+
+We include two utilites to simplify adding samples to your config file: `list_SRA.py` and `list_samples.py`.
 
 ### SRA data
 
