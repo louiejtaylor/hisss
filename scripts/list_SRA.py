@@ -1,4 +1,4 @@
-#!/bin/python3
+#!/bin/python
 
 # Script to generate sample and metadata sections of config file
 # given an SRA project ID.
@@ -14,6 +14,9 @@ args = parser.parse_args()
 
 # Grab sample summary
 csv = requests.get("http://trace.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?save=efetch&db=sra&rettype=runinfo&term="+args.id)
+f = open(args.id+".csv","w")
+f.write(csv.text)
+f.close()
 lines = [l.split(',') for l in csv.text.split("\n")]
 info = {"Run":[], "ScientificName":[], "Study_Pubmed_id":[], "SampleType":[], "Body_Site":[]}
 info_locs = {"Run":lines[0].index("Run"), "ScientificName":lines[0].index("ScientificName"), "Study_Pubmed_id":lines[0].index("Study_Pubmed_id"), "SampleType":lines[0].index("SampleType"), "Body_Site":lines[0].index("Body_Site")}
