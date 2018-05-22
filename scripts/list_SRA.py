@@ -17,9 +17,11 @@ csv = requests.get("http://trace.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?save=efetch
 f = open(args.id+".csv","w")
 f.write(csv.text)
 f.close()
+
+# Grab sample info
 lines = [l.split(',') for l in csv.text.split("\n")]
-info = {"Run":[], "ScientificName":[], "Study_Pubmed_id":[], "SampleType":[], "Body_Site":[]}
-info_locs = {"Run":lines[0].index("Run"), "ScientificName":lines[0].index("ScientificName"), "Study_Pubmed_id":lines[0].index("Study_Pubmed_id"), "SampleType":lines[0].index("SampleType"), "Body_Site":lines[0].index("Body_Site")}
+info = {"Run":[],"LibraryLayout":[], "ScientificName":[], "Study_Pubmed_id":[], "SampleType":[], "Body_Site":[]}
+info_locs = {"Run":lines[0].index("Run"), "LibraryLayout":lines[0].index("LibraryLayout"), "ScientificName":lines[0].index("ScientificName"), "Study_Pubmed_id":lines[0].index("Study_Pubmed_id"), "SampleType":lines[0].index("SampleType"), "Body_Site":lines[0].index("Body_Site")}
 # TODO: can simplify above
 
 # Parse sample summary
@@ -33,9 +35,20 @@ print("study_metadata:")
 print("  sra: True")
 for k in info.keys():
 	if k != "Run":
-		print("  "+str(k)+": "+str(list(set(info[k]))))
-
+		if k != "LibraryLayout":
+			print("  "+str(k)+": "+str(list(set(info[k]))))
+		else:
+			if len(list(set(info[k]))) == 1:
+				paired = list(set(info[k]))[0] == "PAIRED"
+				print("  paired: " + str(paired))
+			else:
+				print(list(set(info[k])))
+				raise Exception("Supports runs with either single or paired data, not both.")
+		
 print("\nsamples:")
 for sample in info["Run"]:
-	print("  "+sample+": ['"+sample+"_1','"+sample+"_2']")
+	if paired:
+		print("  "+sample+": ['"+sample+"_1','"+sample+"_2']")
+	else:
+		print("  "+sample+": '"+sample+"'")
 #TODO: parse unpaired or paired from metadata

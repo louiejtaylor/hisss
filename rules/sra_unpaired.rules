@@ -1,0 +1,13 @@
+# -*- mode: Snakemake -*-
+
+rule download_sra:
+	output:
+		temp(str(DATA_DIR+"/{sample}.fastq")),
+	params:
+		outdir = str(DATA_DIR+"/"),
+		samp = str('{sample}')
+	shell:
+		"""
+		fastq-dump --skip-technical -O {params.outdir} {params.samp}
+		"""
+
