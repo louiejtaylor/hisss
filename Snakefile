@@ -24,7 +24,6 @@ try:
 		include: "rules/sra_" + un + "paired.rules"
 		print("using " + un + "paired data from SRA")
 except KeyError:
-	DATA_DIR = LOCAL_DATA_DIR
 	print("using local " + un + "paired data")
 
 include: "rules/align_" + un + "paired.rules"
