@@ -17,19 +17,17 @@ DATA_DIR = str(config["io"]["output"]+"/download")
 
 un = "un"*int(not config["io"]["paired"]) # use paired or unpaired rule versions
 
-if config["io"]["download"] == False:
-	include: "rules/local_data_"+ un +"paired.rules"
-else:
-	try:
-		if config["study_metadata"]["sra"] == True:
-			# trust SRA metadata over user
-			un = "un"*int(not config["study_metadata"]["paired"])
-			include: "rules/sra_"+ un + "paired.rules"
+try:
+	if config["study_metadata"]["sra"] == True:
+		# trust SRA metadata over user
+		un = "un"*int(not config["study_metadata"]["paired"])
+		include: "rules/sra_" + un + "paired.rules"
+		print("using " + un + "paired data from SRA")
+except KeyError:
+	DATA_DIR = LOCAL_DATA_DIR
+	print("using local " + un + "paired data")
 
-	except KeyError:
-		include: "rules/download_"+ un +"paired.rules"
-
-include: "rules/align_"+ un +"paired.rules"
+include: "rules/align_" + un + "paired.rules"
 
 include: "rules/process_alignment.rules"
 

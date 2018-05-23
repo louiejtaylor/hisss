@@ -18,27 +18,23 @@ Conda is great for managing dependencies and environments without requiring any 
 
 ## Configuration
 
-Hisss can run on both local and remote fastqs that are either paired or unpaired. The options in `config_template.yml` should be self-explanatory--just replace the placeholders with the relevant paths to your samples and alignment targets.
+Hisss can run on both local and remote fastqs that are either paired or unpaired. The options in `config_template.yml` should be self-explanatory--just replace the placeholders with the relevant paths to your samples and alignment targets. 
 
-We include two utilites to simplify adding samples to your config file: `list_SRA.py` and `list_samples.py`.
+The final step in setting up your config is to add your samples. We include two utilites to simplify adding samples to your config file depending on where your data are located: `list_SRA.py` and `list_samples.py`.
 
 ### SRA data
 
-If you're using SRA data, grabbing all the samples from a study is as simple as passing the project identifier (SRP#) to `list_SRA.py` like so:
+If you're using data from [the SRA](https://www.ncbi.nlm.nih.gov/sra), grabbing all the samples from a study is as simple as passing the project identifier (SRP#) to `list_SRA.py` like so:
 
     ./scripts/list_SRA.py SRP####### >> my_config.yml
 
-This will append nicely-formatted sample names to `my_config.yml`. It also saves the metadata file as a .csv.
+This command will append nicely-formatted sample names to `my_config.yml`, along with some metadata of questionable utility. It also saves the full SRA metadata file as a .csv (so we recommend running this in your project directory). You also don't need to know whether the reads are paired- or single-end beforehand--as long as the information is in the SRA metadata it'll be included.
 
 ### Local data
 
 If you're running on local samples, use `list_samples.py`. Let's say your fastqs are paired, located in `/project/fastq/`, and are named like `Sample_[sample_name]_R[pair].fastq`:
 
     ./scripts/list_samples.py -pattern "Sample_{sample}_R{rp}.fastq" /project/fastq/ >> my_config.yml
-
-### Other remote data
-
-Running on arbitrary remote data is also supported (given data URLs), but this is about to be revamped to make it much easier to specify external URLs (so stay tuned!). By default, to keep the footprint small, we don't save most of the output (including downloaded fastqs) but if you'd like to keep them just remove the `temp()` from the rule definition.
 
 ## Running
 
