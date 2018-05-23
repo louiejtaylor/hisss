@@ -25,6 +25,7 @@ try:
 		print("using " + un + "paired data from SRA")
 except KeyError:
 	print("using local " + un + "paired data")
+	include: "rules/local_data_"+ un +"paired.rules"
 
 include: "rules/align_" + un + "paired.rules"
 
