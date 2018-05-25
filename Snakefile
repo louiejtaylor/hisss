@@ -20,7 +20,10 @@ un = "un"*int(not config["io"]["paired"]) # use paired or unpaired rule versions
 try:
 	if config["study_metadata"]["sra"] == True:
 		# trust SRA metadata over user
-		un = "un"*int(not config["study_metadata"]["paired"])
+		try:
+			un = "un"*int(not config["study_metadata"]["paired"])
+		except KeyError:
+			print("couldn't find paired status in SRA metadat--are you using an old config file?")
 		include: "rules/sra_" + un + "paired.rules"
 		print("using " + un + "paired data from SRA")
 except KeyError:

@@ -1,5 +1,5 @@
 # hisss
-A snakemake workflow to download/align reads to targets and produce useful outputs.
+A Snakemake workflow to download/align reads to targets and produce useful outputs.
 
 ## Installing
 
