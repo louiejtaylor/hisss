@@ -1,0 +1,4 @@
+Building DAG of jobs...
+MissingRuleException:
+No rule to produce ../Datasets/PM_27259157/nohup_3.out (if you use input functions make sure that they don't raise unexpected exceptions).
+using paired data from SRA

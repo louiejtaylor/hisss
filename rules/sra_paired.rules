@@ -9,6 +9,6 @@ rule download_sra:
 		samp = str('{sample}')
 	shell:
 		"""
-		fastq-dump --split-files --skip-technical -O {params.outdir} {params.samp}
+		fastq-dump --split-3 --skip-technical -O {params.outdir} {params.samp}
 		"""
 
