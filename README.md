@@ -38,10 +38,17 @@ If you're running on local samples, use `list_samples.py`. Let's say your fastqs
 
 ## Running
 
-To run, simply execute the following in the hisss root dir:
+To run, simply execute the following in the hisss root dir. (The -p flag will print out the shell commands that will be executed)
 
     snakemake -p --configfile [path/to/my_config.yml] all
-    
+
+Some modifications that may be useful when running hiss include:
+    snakemake -p  --restart-times 3 --configfile [path/to/my_config.yml] all
+
+This will retry a failed rule up to 3 times. This can be useful if there are failures in obtaining data from remote databases.
+
+Additional information about snakemake options can be found [here](http://snakemake.readthedocs.io/en/stable/executable.html)
+
 As an example, you can run the dummy data (which should complete very quickly):
 
     snakemake -p --configfile test_data/test_config.yml all
