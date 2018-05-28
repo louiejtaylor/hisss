@@ -44,7 +44,7 @@ To run, simply execute the following in the hisss root dir. (The -p flag will pr
 
 Some modifications that may be useful when running hiss include:
 
-    snakemake -p  --restart-times 3 --configfile [path/to/my_config.yml] all
+    snakemake -p --restart-times 3 --configfile [path/to/my_config.yml] all
 
 This will retry a failed rule up to 3 times. This can be useful if there are failures in obtaining data from remote databases.
 
