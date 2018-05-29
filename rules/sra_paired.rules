@@ -9,6 +9,12 @@ rule download_sra:
 		samp = str('{sample}')
 	shell:
 		"""
-		fastq-dump --split-3 --skip-technical -O {params.outdir} {params.samp}
+		if fastq-dump --split-3 --skip-technical -O {params.outdir} {params.samp}; then
+			echo "download success"
+		else
+			echo "download failed, sleeping"
+			sleep 60
+			exit 1
+		fi
 		"""
 
