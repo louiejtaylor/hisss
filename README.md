@@ -38,19 +38,25 @@ If you're running on local samples, use `list_samples.py`. Let's say your fastqs
 
 ## Running
 
-To run, simply execute the following in the hisss root dir. (The -p flag will print out the shell commands that will be executed)
+To run, simply execute the following in the hisss root dir. The -p flag will print out the shell commands that will be executed. If you'd like to do a dry run (see the commands without running them), pass -np instead of -p.
 
     snakemake -p --configfile [path/to/my_config.yml] all
 
-Some modifications that may be useful when running hiss include:
+If you're running on SRA data, we recommend using `--restart-times` since we've encountered issues with downloads randomly failing:
 
-    snakemake -p --restart-times 3 --configfile [path/to/my_config.yml] all
+    snakemake -p --restart-times 5 --configfile [path/to/my_config.yml] all
+    
+And if you'd just like to use hisss only to grab the data from SRA, pass the `--notemp` flag and specify `download_only` as the target rule:
 
-This will retry a failed rule up to 3 times. This can be useful if there are failures in obtaining data from remote databases.
+    snakemake -p --restart-times 5 --notemp --configfile [path/to/my_config.yml] download_only
 
-Additional information about snakemake options can be found [here](http://snakemake.readthedocs.io/en/stable/executable.html)
+Additional information about snakemake options can be found [here](http://snakemake.readthedocs.io/en/stable/executable.html). When you're done, to leave the conda environment:
 
-As an example, you can run the dummy data (which should complete very quickly):
+    source deactivate
+
+## Troubleshooting
+
+To run the dummy data (which should complete very quickly):
 
     snakemake -p --configfile test_data/test_config.yml all
     
@@ -59,9 +65,6 @@ If you want to run the dummy data again after tinkering with the Snakefile or ru
     cd test_data
     bash clean_test.sh
 
-When you're done, to leave the conda environment:
-
-    source deactivate
 
 ## Current workflow 
 
