@@ -16,3 +16,6 @@ rule download_sra:
 		fi
 		"""
 
+rule download_only:
+	input:
+		expand(DATA_DIR+"/{sample}.fastq",sample=config["samples"])

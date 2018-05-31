@@ -9,7 +9,7 @@ rule download_sra:
 		samp = str('{sample}')
 	shell:
 		"""
-		if fastq-dump --split-3 --skip-technical -O {params.outdir} {params.samp}; then
+		if fastq-dump --split-3 --skip-technical -I -O {params.outdir} {params.samp}; then
 			echo "download success"
 		else
 			echo "download failed, sleeping"
@@ -18,3 +18,14 @@ rule download_sra:
 		fi
 		"""
 
+
+rule download_only:
+	input:
+		r1 = lambda wildcards: DATA_DIR+"/"+config["samples"][wildcards.sample][0],
+		r2 = lambda wildcards: DATA_DIR+"/"+config["samples"][wildcards.sample][1]
+	output:
+		temp(str(DATA_DIR+'/summary.txt'))
+	shell:
+		"""
+		touch {output}
+		"""
