@@ -3,7 +3,7 @@ A Snakemake workflow to download/align reads to targets and produce useful outpu
 
  0. Download all samples from a study archived in NCBI's [sequence read archive](https://www.ncbi.nlm.nih.gov/sra) (optional)
  1. Stringently align .fastq files to one or more target sequences using bowtie-2
- 2. Generate coverage maps for each sample with at least one read aligning to your sequences of interest
+ 2. Generate coverage maps for each positive sample
  3. Generate standardized summary tables with information on depth and breadth of coverage for each positive sample.
 
 ## Installing
