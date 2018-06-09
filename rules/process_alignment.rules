@@ -13,8 +13,8 @@ rule process_alignment:
 		str(OUTPUT_DIR+"/alignments/{sample}.sam")
 	output:
 		bam = temp(str(OUTPUT_DIR+"/alignments/{sample}.bam")),
-		sorted = str(OUTPUT_DIR+"/alignments/{sample}.sorted.bam"),
-		bai = str(OUTPUT_DIR+"/alignments/{sample}.sorted.bam.bai"),
+		sorted = temp(str(OUTPUT_DIR+"/alignments/{sample}.sorted.bam")),
+		bai = temp(str(OUTPUT_DIR+"/alignments/{sample}.sorted.bam.bai")),
 	params:
 		target = str(TARGETS)
 	shell:

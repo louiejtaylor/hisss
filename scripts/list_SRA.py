@@ -42,7 +42,7 @@ for k in info.keys():
 				paired = list(set(info[k]))[0] == "PAIRED"
 				print("  paired: " + str(paired))
 			else:
-				print(list(set(info[k])))
+#				print(list(set(info[k])))
 				raise Exception("Supports runs with either single or paired data, not both.")
 		
 print("\nsamples:")

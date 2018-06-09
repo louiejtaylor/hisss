@@ -5,13 +5,14 @@ rule download_sra:
 		temp(str(DATA_DIR+"/{sample}.fastq")),
 	params:
 		outdir = str(DATA_DIR+"/"),
-		samp = str('{sample}')
+		samp = str('{sample}'),
+		sleeptime = str((attempt+1)*60)
 	shell:
 		"""if fastq-dump --skip-technical -O {params.outdir} {params.samp}; then
 			echo "download success"
 		else
 			echo "download failed, sleeping"
-			sleep 60
+			sleep {params.sleeptime}
 			exit 1
 		fi
 		"""
