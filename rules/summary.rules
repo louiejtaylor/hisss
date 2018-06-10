@@ -2,16 +2,18 @@
 
 rule mapping_stats:
 	input: 
-		str(OUTPUT_DIR+"/alignments/{sample}.sorted.bam")
+		bam = str(OUTPUT_DIR+"/alignments/{sample}.sorted.bam"),
+		idx = str(OUTPUT_DIR+"/alignments/{sample}.sorted.bam.bai")
 	output:
 		temp(str(OUTPUT_DIR+"/alignments/{sample}.sorted.idxstats.tsv"))
 	shell:
 		"""
-		samtools idxstats {input} > {output}
+		samtools idxstats {input.bam} > {output}
 		"""
 rule calculate_coverage:
 	input:
-		str(OUTPUT_DIR+"/alignments/{sample}.sorted.bam")
+		str(OUTPUT_DIR+"/alignments/{sample}.sorted.bam"),
+		idx = str(OUTPUT_DIR+"/alignments/{sample}.sorted.bam.bai")
 	output:
 		temp(str(OUTPUT_DIR+"/alignments/{sample}.genomecoverage.txt"))
 	shell:
