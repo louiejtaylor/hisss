@@ -1,6 +1,7 @@
 # Testing output
 test_data/output/
 .snakemake
+*.swp
 
 # Alignment files
 *.bt2
