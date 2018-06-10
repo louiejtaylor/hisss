@@ -12,13 +12,13 @@ rule mapping_stats:
 		"""
 rule calculate_coverage:
 	input:
-		str(OUTPUT_DIR+"/alignments/{sample}.sorted.bam"),
+		bam = str(OUTPUT_DIR+"/alignments/{sample}.sorted.bam"),
 		idx = str(OUTPUT_DIR+"/alignments/{sample}.sorted.bam.bai")
 	output:
 		temp(str(OUTPUT_DIR+"/alignments/{sample}.genomecoverage.txt"))
 	shell:
 		"""
-		samtools view -b {input}|genomeCoverageBed -ibam stdin|grep -v 'genome'| perl scripts/coverage_counter.pl > {output}	
+		samtools view -b {input.bam}|genomeCoverageBed -ibam stdin|grep -v 'genome'| perl scripts/coverage_counter.pl > {output}	
 		"""
 rule combine_coverage_stats:
 	input:
