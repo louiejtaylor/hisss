@@ -43,7 +43,7 @@ If you're running on local samples, use `list_samples.py`. Let's say your fastqs
 
 ## Running
 
-To run, simply execute the following in the hisss root dir. The -p flag will print out the shell commands that will be executed. If you'd like to do a dry run (see the commands without running them), pass -np instead of -p.
+To run, simply execute the following in the hisss root dir. The `-p` flag will print out the shell commands that will be executed. If you'd like to do a dry run (see the commands without running them), pass `-np` instead of `-p`.
 
     snakemake -p --configfile [path/to/my_config.yml] all
 
