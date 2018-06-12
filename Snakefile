@@ -26,7 +26,8 @@ try:
 			print("couldn't find paired status in SRA metadat--are you using an old config file?")
 		include: "rules/sra_" + un + "paired.rules"
 		print("using " + un + "paired data from SRA")
-except KeyError:
+except KeyError as e:
+	print(str(e) + "not found.")
 	print("using local " + un + "paired data")
 	include: "rules/local_data_"+ un +"paired.rules"
 

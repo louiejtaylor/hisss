@@ -4,7 +4,7 @@
 # given an SRA project ID.
 
 from __future__ import print_function
-import requests, argparse
+import requests, argparse, sys
 
 # Set up parser
 parser = argparse.ArgumentParser(description='Add samples and metadata to hisss config file from SRA project ID.')
@@ -31,24 +31,31 @@ for line in lines[1:]:
 			info[k].append(line[info_locs[k]])
 
 # Output in config format
-print("study_metadata:")
-print("  sra: True")
+p_chunk,up_chunk=["study_metadata:\n  sra: True\n"]*2
+
 for k in info.keys():
 	if k != "Run":
 		if k != "LibraryLayout":
-			print("  "+str(k)+": "+str(list(set(info[k]))))
+			p_chunk += "  "+str(k)+": "+str(list(set(info[k]))) + '\n'
+			up_chunk += "  "+str(k)+": "+str(list(set(info[k]))) + '\n'
 		else:
-			if len(list(set(info[k]))) == 1:
-				paired = list(set(info[k]))[0] == "PAIRED"
-				print("  paired: " + str(paired))
-			else:
-#				print(list(set(info[k])))
-				raise Exception("Supports runs with either single or paired data, not both.")
-		
-print("\nsamples:")
-for sample in info["Run"]:
-	if paired:
-		print("  "+sample+": ['"+sample+"_1','"+sample+"_2']")
+			p_chunk += "  paired: True\n"
+			up_chunk += "  paired: False\n"
+
+			if len(list(set(info[k]))) == 2:
+				sys.stderr.write("WARNING: Dataset contains both paired and unpaired, outputting both in separate config chunks\n\n")
+
+p_chunk += "\nsamples:\n"
+up_chunk += "\nsamples:\n"
+
+for i in range(len(info["Run"])):
+	sample = info["Run"][i]
+	if info["LibraryLayout"][i] == "PAIRED":
+		p_chunk += "  "+sample+": ['"+sample+"_1','"+sample+"_2']\n"
 	else:
-		print("  "+sample+": '"+sample+"'")
-#TODO: parse unpaired or paired from metadata
+		up_chunk += "  "+sample+": '"+sample+"'\n"
+
+if not p_chunk.endswith("sample:\n"):
+	print(p_chunk)
+if not up_chunk.endswith("sample:\n"):
+	print(up_chunk)
