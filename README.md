@@ -55,7 +55,9 @@ And if you'd just like to use hisss only to grab the data from SRA, pass the `--
 
     snakemake -p --restart-times 5 --notemp --configfile [path/to/my_config.yml] download_only
 
-Additional information about snakemake options can be found [here](http://snakemake.readthedocs.io/en/stable/executable.html). When you're done, to leave the conda environment:
+There are many more useful options that you could pass to snakemake that are beyond the scope of this tutorial. Read more about them [here](http://snakemake.readthedocs.io/en/stable/executable.html)! 
+
+When you're done, to leave the conda environment:
 
     source deactivate
 
@@ -70,6 +72,8 @@ If you want to run the dummy data again after tinkering with the Snakefile or ru
     cd test_data
     bash clean_test.sh
 
+
+Feel free to [open an issue](https://github.com/louiejtaylor/hisss/issues) or tweet [@Louviridae](https://twitter.com/Louviridae) or [@A2_Insanity](https://twitter.com/A2_Insanity) if you have problems. Good luck!
 
 ## Current workflow 
 
