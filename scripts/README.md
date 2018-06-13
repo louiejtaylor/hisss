@@ -16,5 +16,5 @@ Finally, the downloading should be super easy, just run this in the hisss direct
 
 The `restart-times` option is absoulutely crucial, since SRA downloads seem to fail every so often but will succeed if you try again. The `notemp` option keeps reads around, since hisss usually removes all read and alignment files to stay lightweight. Finally, specifying `download_only` as the target rule ensures that hisss goes only as far as downloading the reads.
 
-There are many more useful options that you could pass to snakemake that are beyond the scope of this tutorial. Read more about them [here](http://snakemake.readthedocs.io/en/stable/executable.html)! Feel free to [open an issue](https://github.com/louiejtaylor/hisss/issues) or tweet [@Louviridae](https://twitter.com/Louviridae) or [@A2_Insanity](https://twitter.com/A2_Insanity). Good luck!
+There are many more useful options that you could pass to snakemake that are beyond the scope of this tutorial. Read more about them [here](http://snakemake.readthedocs.io/en/stable/executable.html)! Feel free to [open an issue](https://github.com/louiejtaylor/hisss/issues) or tweet [@Louviridae](https://twitter.com/Louviridae) or [@A2_Insanity](https://twitter.com/A2_Insanity) if you have problems. Good luck!
 
