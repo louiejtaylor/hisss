@@ -1,7 +1,7 @@
 # hisss: HIgh-throughput Shotgun Sequence Searcher
 A Snakemake workflow to download/align reads to targets and produce useful outputs. With hiss, you can:
 
- 0. Download reads for all samples from a study archived in NCBI's [sequence read archive](https://www.ncbi.nlm.nih.gov/sra) (optional)
+ 0. Download reads for all samples from a study archived in NCBI's [sequence read archive](https://www.ncbi.nlm.nih.gov/sra) (optional). If you'd like to ONLY do this, check out the [streamlined download-only instructions](https://github.com/louiejtaylor/hisss/tree/master/scripts/README.md)!
  1. Stringently align .fastq files to one or more target sequences using bowtie-2
  2. Generate coverage maps for each positive sample
  3. Generate standardized summary tables with information on depth and breadth of coverage for each positive sample.
