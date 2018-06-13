@@ -1,6 +1,6 @@
 # Using hisss to download reads from SRA
 
-Thesea are streamlined instructions to use hisss just for downloading sequences from the SRA. This assumes you've already completed the [installation and configuration steps](https://github.com/louiejtaylor/hisss/blob/master/README.md) for hisss (although setting the alignment target in the config isn't necessary).
+Thesea are streamlined instructions to use hisss just for downloading sequences from the SRA. This assumes you've already completed the [installation steps](https://github.com/louiejtaylor/hisss/blob/master/README.md) for hisss and have a config file (although setting the alignment target in the config isn't necessary).
 
 First, if you aren't already, make sure you're in the hisss conda environment with `source activate hisss`. Then, use `list_SRA.py` to add the study's samples to your config file:
 
