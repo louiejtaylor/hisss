@@ -1,6 +1,0 @@
-'study_metadata'not found.
-using local unpaired data
-Building DAG of jobs...
-MissingInputException in line 3 of /media/THING2/louis/09_SearchingExternalDatasets/hisss/rules/local_data_unpaired.rules:
-Missing input files for rule symlink_local_data:
-fastq/mgm4547399.3.fastq.gz
