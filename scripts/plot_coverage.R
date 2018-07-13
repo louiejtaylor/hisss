@@ -44,7 +44,7 @@ plot_nuc_cov <- function(cov_df) {
   p.list <- lapply(sort(unique(cov_df$AlignTarget)), function(i) {
     ggplot(cov_df[cov_df$AlignTarget==i,], 
            aes(x = Position, 
-               y = Count), fill = "grey") +
+               y = Count), fill = "black") +
     geom_col() +
     facet_wrap(~AlignTarget, scales = "free", ncol = 1) +
     ggtitle(NULL) +
@@ -52,11 +52,13 @@ plot_nuc_cov <- function(cov_df) {
     ylab("Coverage") +
     theme_bw(base_size = 14) + 
     theme(panel.grid.major = element_blank(),
-          panel.grid.minor.x = element_blank(),
+          panel.grid.minor = element_blank(),
           panel.spacing = unit(1.2, "lines"),
-          strip.background = element_rect(colour="black", fill="white"),
+          strip.background = element_rect(colour="white", fill="white"),
           legend.position="right",
-          axis.text.x = element_text(size = rel(0.7)))
+          axis.title = element_text(size = rel(1.5)),
+          axis.text = element_text(size = rel(1.25), color = "black"),
+          strip.text = element_text(size = rel(1.25), color = "black"))
   })
   
   return(p.list)
