@@ -8,9 +8,10 @@ rule download_sra:
 		outdir = str(DATA_DIR+"/"),
 		samp = str('{sample}'),
 		sleeptime = str(100)
+	threads: 6
 	shell:
 		"""
-		if fasterq-dump -O {params.outdir} {params.samp}; then
+		if fasterq-dump -e {threads} -O {params.outdir} {params.samp}; then
 			echo "download success"
 		else
 			echo "download failed, sleeping"
