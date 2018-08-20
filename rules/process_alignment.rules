@@ -5,8 +5,9 @@ rule build_index:
 		str(TARGETS)
 	output:
 		str(TARGETS+".1.bt2")
+	threads: 20
 	shell:
-		"bowtie2-build -f {input} {input}"
+		"bowtie2-build --threads {threads} -f {input} {input}"
 
 rule process_alignment:
 	input:
