@@ -8,7 +8,8 @@ rule download_sra:
 		samp = str('{sample}'),
 		sleeptime = str(100)
 	shell:
-		"""if fastq-dump -O {params.outdir} {params.samp}; then
+		"""
+		if fastq-dump --skip-technical -O {params.outdir} {params.samp}; then
 			echo "download success"
 		else
 			echo "download failed, sleeping"
