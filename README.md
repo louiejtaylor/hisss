@@ -31,7 +31,7 @@ The final step in setting up your config is to add your samples. We include two 
 
 If you're using data from [the SRA](https://www.ncbi.nlm.nih.gov/sra), grabbing all the samples from a study is as simple as passing the project identifier (SRP#) to `list_SRA.py` like so:
 
-    ./scripts/list_SRA.py SRP####### >> my_config.yml
+    python ./scripts/list_SRA.py SRP####### >> my_config.yml
 
 This command will append nicely-formatted sample names to `my_config.yml`, along with some metadata of questionable utility. It also saves the full SRA metadata file as a .csv (so we recommend running this in your project directory). You also don't need to know whether the reads are paired- or single-end beforehand--as long as the information is in the SRA metadata it'll be included.
 
@@ -39,7 +39,7 @@ This command will append nicely-formatted sample names to `my_config.yml`, along
 
 If you're running on local samples, use `list_samples.py`. Let's say your fastqs are paired, located in `/project/fastq/`, and are named like `Sample_[sample_name]_R[pair].fastq`:
 
-    ./scripts/list_samples.py -pattern "Sample_{sample}_R{rp}.fastq" /project/fastq/ >> my_config.yml
+    python ./scripts/list_samples.py -pattern "Sample_{sample}_R{rp}.fastq" /project/fastq/ >> my_config.yml
 
 ## Running
 
