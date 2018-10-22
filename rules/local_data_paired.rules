@@ -5,8 +5,8 @@ rule symlink_local_data:
 		r1 = lambda wildcards: LOCAL_DATA_DIR+"/"+config["samples"][wildcards.sample][0],
                 r2 = lambda wildcards: LOCAL_DATA_DIR+"/"+config["samples"][wildcards.sample][1]
 	output:
-		r1 = str(DATA_DIR+"/{sample}_1.fastq"),
-		r2 = str(DATA_DIR+"/{sample}_2.fastq")
+		r1 = str(DATA_DIR+"/{sample}_1.fastq.gz"),
+		r2 = str(DATA_DIR+"/{sample}_2.fastq.gz")
 	shell:
 		"""
 		ln -sr {input.r1} {output.r1}

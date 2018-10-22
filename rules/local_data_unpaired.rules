@@ -4,7 +4,7 @@ rule symlink_local_data:
 	input:
 		lambda wildcards: LOCAL_DATA_DIR+"/"+config["samples"][wildcards.sample]
 	output:
-		str(DATA_DIR+"/{sample}.fastq")
+		str(DATA_DIR+"/{sample}.fastq.gz")
 	shell:
 		"""
 		ln -sr {input} {output}

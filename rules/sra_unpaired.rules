@@ -9,7 +9,7 @@ rule download_sra:
 		sleeptime = str(100)
 	shell:
 		"""
-		if fastq-dump --skip-technical -O {params.outdir} {params.samp}; then
+		if fastq-dump --gzip --skip-technical -O {params.outdir} {params.samp}; then
 			echo "download success"
 		else
 			echo "download failed, sleeping"

@@ -2,7 +2,7 @@
 
 rule align_reads:
 	input:
-		r = str(DATA_DIR+"/{sample}.fastq"),
+		r = str(DATA_DIR+"/{sample}.fastq.gz"),
 		index = str(TARGETS+".1.bt2")
 	output:
 		temp(str(OUTPUT_DIR+"/alignments/{sample}.sam"))
