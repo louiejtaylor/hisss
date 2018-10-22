@@ -2,7 +2,7 @@
 
 rule download_sra:
 	output:
-		temp(str(DATA_DIR+"/{sample}.fastq")),
+		temp(str(DATA_DIR+"/{sample}.fastq.gz")),
 	params:
 		outdir = str(DATA_DIR+"/"),
 		samp = str('{sample}'),
@@ -20,4 +20,4 @@ rule download_sra:
 
 rule download_only:
 	input:
-		expand(DATA_DIR+"/{sample}.fastq",sample=config["samples"])
+		expand(DATA_DIR+"/{sample}.fastq.gz",sample=config["samples"])
