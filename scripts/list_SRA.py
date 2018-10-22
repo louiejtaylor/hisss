@@ -55,7 +55,7 @@ for i in range(len(info["Run"])):
 	else:
 		up_chunk += "  "+sample+": '"+sample+"'\n"
 
-if not p_chunk.endswith("sample:\n"):
+if not p_chunk.strip().endswith(":"):
 	print(p_chunk)
-if not up_chunk.endswith("sample:\n"):
+if not up_chunk.strip().endswith(":"):
 	print(up_chunk)
