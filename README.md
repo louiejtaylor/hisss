@@ -17,7 +17,7 @@ We use conda to handle dependencies; you can install miniconda from [here](https
     
     conda create -n hisss
     source activate hisss
-    conda install -c bioconda -c conda-forge --file requirements.txt 
+    conda install -c bioconda -c conda-forge -c louiejtaylor --file requirements.txt 
     
 Conda is great for managing dependencies and environments without requiring any admin privileges.
 
