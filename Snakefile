@@ -18,14 +18,25 @@ DATA_DIR = str(config["io"]["output"]+"/download")
 un = "un"*int(not config["io"]["paired"]) # use paired or unpaired rule versions
 
 try:
-	if config["study_metadata"]["sra"] == True:
-		# trust SRA metadata over user
+	if config["study_metadata"]["repo"] == 'sra':
+		# trust repository metadata over user
 		try:
 			un = "un"*int(not config["study_metadata"]["paired"])
 		except KeyError:
-			print("couldn't find paired status in SRA metadat--are you using an old config file?")
+			raise KeyError("couldn't find paired status in SRA metadat--are you using an old config file?")
 		include: "rules/sra_" + un + "paired.rules"
 		print("using " + un + "paired data from SRA")
+
+	elif config["study_metadata"]["repo"] == 'mgrast':
+		try:
+			un = "un"*int(not config["study_metadata"]["paired"])
+		except KeyError:
+			raise KeyError("couldn't find paired status in SRA metadat--are you using an old config file?")
+		include: "rules/mgrast_" + un + "paired.rules"
+		print("using " + un + "paired data from MG-RAST")
+
+	else:
+		raise KeyError("trying to use an unknown repository: "+str(config["study_metadata"]["repo"]))
 except KeyError as e:
 	print(str(e) + "not found.")
 	print("using local " + un + "paired data")

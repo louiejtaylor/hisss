@@ -1,6 +1,6 @@
 # -*- mode: Snakemake -*-
 
-rule download_sra:
+rule download_mgrast:
 	output:
 		temp(str(DATA_DIR+"/{sample}.fastq.gz")),
 	params:
@@ -10,7 +10,7 @@ rule download_sra:
 	shadow: "shallow"
 	shell:
 		"""
-		grabseqs sra -t {threads} -f -r 4 --no_parsing -o {params.outdir} {params.samp}
+		grabseqs mgrast -t {threads} -f -r 4 -o {params.outdir} {params.samp}
 		"""
 
 rule download_only:

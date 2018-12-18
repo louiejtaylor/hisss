@@ -4,34 +4,33 @@
 # given an SRA project ID.
 
 from __future__ import print_function
-import requests, argparse, sys
+import requests, argparse, sys, subprocess, io
 
 # Set up parser
 parser = argparse.ArgumentParser(description='Add samples and metadata to hisss config file from SRA project ID.')
-parser.add_argument('id', type=str, help='SRA project ID')
+parser.add_argument('ids', type=str, nargs='+', help='MG-RAST project or sample IDs')
 #TODO: add ability for user to specify other metadata columns from SRA .csv they want
 args = parser.parse_args()
 
-# Grab sample summary
-csv = requests.get("http://trace.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?save=efetch&db=sra&rettype=runinfo&term="+args.id)
-f = open(args.id+".csv","w")
-f.write(csv.text)
-f.close()
+# List samples
+cmd_args = ["grabseqs", "mgrast", "-l"] + args.ids
+result = subprocess.run(cmd_args, stdout=subprocess.PIPE, check=True)
+f = io.StringIO(result.stdout.decode("ASCII"))
+info = {'Run':[], 'LibraryLayout':[]}
 
-# Grab sample info
-lines = [l.split(',') for l in csv.text.split("\n") if "AMPLICON" not in l]
-info = {"Run":[],"LibraryLayout":[], "ScientificName":[], "Study_Pubmed_id":[], "SampleType":[], "Body_Site":[]}
-info_locs = {"Run":lines[0].index("Run"), "LibraryLayout":lines[0].index("LibraryLayout"), "ScientificName":lines[0].index("ScientificName"), "Study_Pubmed_id":lines[0].index("Study_Pubmed_id"), "SampleType":lines[0].index("SampleType"), "Body_Site":lines[0].index("Body_Site")}
-# TODO: can simplify above
+for j in f.read().split('\n'):
+	if len(j.strip()) > 0:
+		i = j.split(',')
+		if len(i) == 2:
+			info['LibraryLayout'].append("paired")
+			info['Run'].append(i[0].split('_1.fastq.gz')[0])
+		elif len(i) == 1:
+			info['LibraryLayout'].append("unpaired")
+			info['Run'].append(i[0].split('.fastq.gz')[0])
 
-# Parse sample summary
-for line in lines[1:]:
-	if len(line) > 1:
-		for k in info_locs.keys():
-			info[k].append(line[info_locs[k]])
 
 # Output in config format
-p_chunk,up_chunk=["study_metadata:\n  repo: 'sra'\n"]*2
+p_chunk,up_chunk=["study_metadata:\n  repo: 'mgrast'\n"]*2
 
 for k in info.keys():
 	if k != "Run":
