@@ -27,13 +27,17 @@ Hisss can run on both local and remote fastqs that are either paired or unpaired
 
 The final step in setting up your config is to add your samples. We include two utilites to simplify adding samples to your config file depending on where your data are located: `list_SRA.py` and `list_samples.py`.
 
-### SRA data
+### SRA or MG-RAST data
 
 If you're using data from [the SRA](https://www.ncbi.nlm.nih.gov/sra), grabbing all the samples from a study is as simple as passing the project identifier (SRP#) to `list_SRA.py` like so:
 
     python ./scripts/list_SRA.py SRP####### >> my_config.yml
 
 This command will append nicely-formatted sample names to `my_config.yml`, along with some metadata of questionable utility. It also saves the full SRA metadata file as a .csv (so we recommend running this in your project directory). You also don't need to know whether the reads are paired- or single-end beforehand--as long as the information is in the SRA metadata it'll be included.
+
+A similar script is available for MG-RAST data, which can be used like so:
+
+    python ./scripts/list_MGRAST.py mgp###### >> my_config.yml    
 
 ### Local data
 
