@@ -19,7 +19,7 @@ f.write(csv.text)
 f.close()
 
 # Grab sample info
-lines = [l.split(',') for l in csv.text.split("\n") if "AMPLICON" not in l]
+lines = [l.split(',') for l in csv.text.split("\n")]# if "AMPLICON" not in l]
 info = {"Run":[],"LibraryLayout":[], "ScientificName":[], "Study_Pubmed_id":[], "SampleType":[], "Body_Site":[]}
 info_locs = {"Run":lines[0].index("Run"), "LibraryLayout":lines[0].index("LibraryLayout"), "ScientificName":lines[0].index("ScientificName"), "Study_Pubmed_id":lines[0].index("Study_Pubmed_id"), "SampleType":lines[0].index("SampleType"), "Body_Site":lines[0].index("Body_Site")}
 # TODO: can simplify above

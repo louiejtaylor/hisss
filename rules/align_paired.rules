@@ -9,5 +9,6 @@ rule align_reads:
 		temp(str(OUTPUT_DIR+"/alignments/{sample}.sam"))
 	params:
 		index = str(TARGETS)
+	threads: 6
 	shell:
-		"bowtie2 -q --local -t --very-sensitive-local --no-mixed --no-discordant -x {params.index} -1 {input.r1} -2 {input.r2} -S {output}"
+		"bowtie2 -q --local -t --very-sensitive-local --threads {threads} --no-mixed --no-discordant -x {params.index} -1 {input.r1} -2 {input.r2} -S {output}"
