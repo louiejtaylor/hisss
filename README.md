@@ -49,15 +49,15 @@ If you're running on local samples, use `list_samples.py`. Let's say your fastqs
 
 To run, simply execute the following in the hisss root dir. The `-p` flag will print out the shell commands that will be executed. If you'd like to do a dry run (see the commands without running them), pass `-np` instead of `-p`.
 
-    snakemake -p --configfile [path/to/my_config.yml] all
+    snakemake -p --configfile path/to/my_config.yml all
 
 If you're running on SRA data, we recommend using `--restart-times` since we've encountered issues with downloads randomly failing:
 
-    snakemake -p --restart-times 5 --configfile [path/to/my_config.yml] all
+    snakemake -p --restart-times 5 --configfile path/to/my_config.yml all
     
 And if you'd just like to use hisss only to grab the data from SRA, pass the `--notemp` flag and specify `download_only` as the target rule:
 
-    snakemake -p --restart-times 5 --notemp --configfile [path/to/my_config.yml] download_only
+    snakemake -p --restart-times 5 --notemp --configfile path/to/my_config.yml download_only
 
 There are many more useful options that you could pass to snakemake that are beyond the scope of this tutorial. Read more about them [here](http://snakemake.readthedocs.io/en/stable/executable.html)! 
 
