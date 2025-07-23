@@ -51,7 +51,7 @@ To run, simply execute the following in the hisss root dir. The `-p` flag will p
 
     snakemake -p --configfile path/to/my_config.yml all
 
-If you're running on SRA data, we recommend using `--restart-times` since we've encountered issues with downloads randomly failing:
+If you're running on SRA data, we recommend using `--restart-times` since we've encountered issues with downloads intermittently failing:
 
     snakemake -p --restart-times 5 --configfile path/to/my_config.yml all
     
